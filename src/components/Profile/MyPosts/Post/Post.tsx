@@ -1,11 +1,19 @@
 import React from 'react';
 import classes from './Post.module.css'
 
-function Post() {
+
+
+
+interface PostsProps{
+  message?:string;
+  likeCount:number;
+}
+function Post(props: PostsProps) {
   return (
     <div className={classes.item}>
       <img className={classes.postImg} src='https://www.blexar.com/avatar.png' alt='ava'></img>
-      post1
+      {props.message}
+      <span>likes = {props.likeCount}</span>
     </div>
   )
 }
