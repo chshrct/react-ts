@@ -6,10 +6,10 @@ function Navbar() {
     return (
         <nav className={style.nav}>
             <div className={style.item}>
-                <Link to={"/profile*"} >Profile</Link>
+                <Link to={"/profile/*"} >Profile</Link>
             </div>
             <div className={style.item}>
-                <Link to={"/dialogs*"}>Dialogs</Link>
+                <Link to={"/dialogs/*"}>Dialogs</Link>
             </div>
             <div className={style.item}>
                 <a href="#s">News</a>
