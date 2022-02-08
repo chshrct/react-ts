@@ -1,48 +1,43 @@
 import React from "react";
 import style from './Dialogs.module.css'
-import {Link} from "react-router-dom";
-
-type DialogItemType = {
-    name: string
-    id: number
-}
-
-const DialogItem = (props: DialogItemType) => {
-    return (
-        <div className={style.dialog + ' ' + style.active}>
-            <Link to={`/dialogs/${props.id}`}>{props.name}</Link>
-        </div>
-    )
-}
-
-type MessageItemType ={
-    message:string
-}
-
-const MessageItem =(props:MessageItemType)=>{
-    return(
-        <div className="message">{props.message}</div>
-    )
-}
+import {MessageItem} from "./MessageItem/MessageItem";
+import {DialogItem} from "./DialogItem/DialogItem";
 
 const Dialogs = (props: any) => {
+
+    let usersData = [
+        {id: 1, name: 'Алеша'},
+        {id: 2, name: 'Володя'},
+        {id: 3, name: 'Анюта'},
+        {id: 4, name: 'Федя'},
+        {id: 5, name: 'Вика'},
+        {id: 6, name: 'Леся'},
+        {id: 7, name: 'Зина'}
+    ]
+    let messagesData = [
+        {id: 1, message: 'hello there'},
+        {id: 2, message: 'How r u doing?'},
+        {id: 3, message: 'No comprende'}
+    ]
+
+    let dialogsList = usersData
+        .map(
+            user => <DialogItem name={user.name} id={user.id}/>
+        );
+    let messagesList = messagesData
+        .map(
+            msg => <MessageItem message={msg.message}/>
+        )
+
     return (
         <div className={style.dialogs}>
 
             <div className={style.dialogItems}>
-                <DialogItem name={'Алеша'} id={1}/>
-                <DialogItem name={'Володя'} id={2}/>
-                <DialogItem name={'Анюта'} id={3}/>
-                <DialogItem name={'Федя'} id={4}/>
-                <DialogItem name={'Вика'} id={5}/>
-                <DialogItem name={'Леся'} id={6}/>
-                <DialogItem name={'Зина'} id={7}/>
+                {dialogsList}
             </div>
 
             <div className={style.messages}>
-                <MessageItem message={'hello there'}/>
-                <MessageItem message={'How r u doing?'}/>
-                <MessageItem message={'No comprende'}/>
+                {messagesList}
             </div>
         </div>
     )
