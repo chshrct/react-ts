@@ -15,12 +15,14 @@ function App(props: any) {
             <div className={'app-wrapper-content'}>
                 <Routes>
                     <Route
-                        path={'/profile'}
-                        element={<Profile profile={props.posts}/>}/>
+                        path={'/profile/*'}
+                        element={<Profile profile={props.state.profilePage.posts}/>}/>
 
                     <Route
                         path={'/dialogs/*'}
-                        element={<Dialogs dialogs={props.dialogs}/>}/>
+                        element={<Dialogs
+                            users={props.state.dialogsPage.users}
+                            messages={props.state.dialogsPage.messages}/>}/>
                 </Routes>
             </div>
         </div>
