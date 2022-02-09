@@ -1,16 +1,21 @@
 import React from 'react';
-import classes from './MyPosts.module.css'
-import Post from './Post/Post';
 import style from './MyPosts.module.css'
+import Post from './Post/Post';
 
-function MyPosts() {
+type postType = {
+    id:number,
+    message:string,
+    likeCount:number
+}
 
-    let postsData=[
-        {id:1,message:'hello',likeCount:10},
-        {id:2,message:'hiho',likeCount:5}
-    ]
-    let postsList = postsData.map(
-        post=><Post message={post.message} likeCount={post.likeCount}/>
+type MyPostsType={
+    posts:Array<postType>
+}
+
+function MyPosts(props:MyPostsType) {
+
+    let postsList = props.posts.map(
+        post=><Post key={post.id} id ={post.id} message={post.message} likeCount={post.likeCount}/>
     )
 
     return (
@@ -19,7 +24,7 @@ function MyPosts() {
             <div>
                 <h3>new post</h3>
             </div>
-            <div className={classes.posts}>
+            <div className={style.posts}>
                 {postsList}
             </div>
         </div>

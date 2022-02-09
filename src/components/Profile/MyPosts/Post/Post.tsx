@@ -2,9 +2,10 @@ import React from 'react';
 import classes from "./Post.module.css";
 
 
-interface PostsProps {
-    message?: string;
-    likeCount: number;
+type PostsProps = {
+    id:number
+    message: string
+    likeCount: number
 }
 
 function Post(props: PostsProps) {

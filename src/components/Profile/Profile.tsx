@@ -1,14 +1,12 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
-import classes from './Profile.module.css'
-import {Link} from "react-router-dom";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
-function Profile() {
+function Profile(props:any) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts posts={props.profile}/>
         </div>
 
     )
