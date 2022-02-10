@@ -2,11 +2,25 @@ import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
-function Profile(props:any) {
+export type postType ={
+    id:number
+    message:string
+    likeCount:number
+}
+
+type profilePageType ={
+    posts:Array<postType>
+}
+
+type profileStateType ={
+    state:profilePageType
+}
+
+function Profile(props:profileStateType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.profile}/>
+            <MyPosts myPosts={props.state.posts}/>
         </div>
 
     )

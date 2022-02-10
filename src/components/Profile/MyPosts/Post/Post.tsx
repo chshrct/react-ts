@@ -1,14 +1,9 @@
 import React from 'react';
 import classes from "./Post.module.css";
+import {postType} from "../../Profile";
 
 
-type PostsProps = {
-    id:number
-    message: string
-    likeCount: number
-}
-
-function Post(props: PostsProps) {
+function Post(props: postType) {
     return (
         <div className={classes.item}>
             <img className={classes.postImg} src='https://www.blexar.com/avatar.png' alt='ava'/>

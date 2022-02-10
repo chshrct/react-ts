@@ -1,34 +1,28 @@
 import React from "react";
 import style from './Dialogs.module.css'
-import {MessageItem} from "./MessageItem/MessageItem";
-import {DialogItem} from "./DialogItem/DialogItem";
+import {MessageItem, messageType} from "./MessageItem/MessageItem";
+import {DialogItem, userType} from "./DialogItem/DialogItem";
 
-type usersType = {
-    id: number
-    name: string
+type dialogsPageType = {
+    users: Array<userType>
+    messages: Array<messageType>
 }
 
-type messagesType = {
-    id: number
-    message: string
-}
-
-type DialogsType = {
-    users: Array<usersType>
-    messages: Array<messagesType>
+type DialogsStateType = {
+    state: dialogsPageType
 }
 
 
-const Dialogs = (props: DialogsType) => {
+const Dialogs = (props: DialogsStateType) => {
 
-    let dialogsList = props.users
+    const dialogsList = props.state.users
         .map(
             user => <DialogItem
                 key={user.id}
                 id={user.id}
                 name={user.name}/>
         );
-    let messagesList = props.messages
+    const messagesList = props.state.messages
         .map(
             msg => <MessageItem
                 key={msg.id}
