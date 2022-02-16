@@ -10,11 +10,13 @@ export type postType ={
 
 type profilePageType ={
     posts:Array<postType>
+    newPostText:string
 }
 
 type profileStateType ={
     state:profilePageType
     addPost:()=>void
+    newPostTextEdit:()=>void
 }
 
 function Profile(props:profileStateType) {
@@ -24,6 +26,8 @@ function Profile(props:profileStateType) {
             <MyPosts
                 myPosts={props.state.posts}
                 addPost={props.addPost}
+                newPostText={props.state.newPostText}
+                newPostTextEdit={props.newPostTextEdit}
             />
         </div>
 

@@ -19,6 +19,7 @@ function App(props: any) {
                         element={<Profile
                             state={props.state.profilePage}
                             addPost={props.addPost}
+                            newPostTextEdit={props.newPostTextEdit}
                         />}/>
 
                     <Route

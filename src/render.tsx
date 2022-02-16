@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {addPost} from "./redux/state";
+import {addPost, newPostTextEdit} from "./redux/state";
 
 export const rerenderEntireThree = (state:any)=>{
         ReactDOM.render(
@@ -12,6 +12,7 @@ export const rerenderEntireThree = (state:any)=>{
                     <App
                         state={state}
                         addPost={addPost}
+                        newPostTextEdit={newPostTextEdit}
                     />
                 </BrowserRouter>
             </React.StrictMode>,

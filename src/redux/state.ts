@@ -6,7 +6,8 @@ export const state = {
         posts:[
             {id: 1, message: 'hello', likeCount: 10},
             {id: 2, message: 'hiho', likeCount: 5}
-        ]
+        ],
+        newPostText: 'LolXd'
     },
     dialogsPage:{
         users:[
@@ -26,13 +27,19 @@ export const state = {
     }
 }
 
-export const addPost = (postMessage:string)=>{
+export const newPostTextEdit = (s:string)=>{
+    state.profilePage.newPostText=s
+    rerenderEntireThree(state)
+}
+
+export const addPost = ()=>{
     let newMessage = {
         id:3,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likeCount:0
     }
     state.profilePage.posts.push(newMessage)
+    state.profilePage.newPostText=''
     rerenderEntireThree(state)
 
 }
