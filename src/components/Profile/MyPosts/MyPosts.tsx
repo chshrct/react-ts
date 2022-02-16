@@ -7,6 +7,7 @@ import {postType} from "../Profile";
 
 type MyPostsType={
     myPosts:Array<postType>
+    addPost:(s:string | undefined)=>void
 }
 
 function MyPosts(props:MyPostsType) {
@@ -23,7 +24,7 @@ function MyPosts(props:MyPostsType) {
             <div>
                 <textarea ref={tAreaRef}></textarea>
                 <div>
-                    <button onClick={()=>{alert(tAreaRef.current?.value)}}>add</button>
+                    <button onClick={()=>{props.addPost(tAreaRef.current?.value)}}>add</button>
                 </div>
             </div>
             <div>

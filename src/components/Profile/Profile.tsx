@@ -14,13 +14,17 @@ type profilePageType ={
 
 type profileStateType ={
     state:profilePageType
+    addPost:()=>void
 }
 
 function Profile(props:profileStateType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts myPosts={props.state.posts}/>
+            <MyPosts
+                myPosts={props.state.posts}
+                addPost={props.addPost}
+            />
         </div>
 
     )

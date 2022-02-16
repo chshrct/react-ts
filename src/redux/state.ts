@@ -23,6 +23,14 @@ export const state = {
             {id: 3, message: 'No comprende'}
         ]
     }
-
-
 }
+
+export const addPost = (postMessage:string)=>{
+    let newMessage = {
+        id:3,
+        message: postMessage,
+        likeCount:0
+    }
+    state.profilePage.posts.push(newMessage)
+}
+
