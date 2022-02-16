@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48f5f77b-e9cb-4d70-a5ba-a9a85c119f1a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/render.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/state.ts" afterDir="false" />
     </list>
@@ -47,7 +46,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
@@ -57,6 +56,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\projects\itincubator\react-ts\src" />
       <recent name="F:\projects\itincubator\react-ts\src\components\Dialogs\DialogItem" />
       <recent name="F:\projects\itincubator\react-ts\src\components\Dialogs\MessageItem" />
       <recent name="F:\projects\itincubator\react-ts\src\components\Profile\ProfileInfo" />
@@ -86,7 +86,7 @@
       <workItem from="1644475216962" duration="8507000" />
       <workItem from="1644775755163" duration="2580000" />
       <workItem from="1644827078329" duration="11000" />
-      <workItem from="1645035239055" duration="2095000" />
+      <workItem from="1645035239055" duration="3190000" />
     </task>
     <servers />
   </component>

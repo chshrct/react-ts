@@ -1,3 +1,4 @@
+import {rerenderEntireThree} from "../render";
 
 
 export const state = {
@@ -32,5 +33,7 @@ export const addPost = (postMessage:string)=>{
         likeCount:0
     }
     state.profilePage.posts.push(newMessage)
+    rerenderEntireThree(state)
+
 }
 
