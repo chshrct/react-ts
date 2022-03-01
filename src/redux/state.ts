@@ -1,16 +1,14 @@
-import {rerenderEntireThree} from "../render";
-
-
+let rerenderEntireThree = (state:any) => {};
 export const state = {
-    profilePage:{
-        posts:[
+    profilePage: {
+        posts: [
             {id: 1, message: 'hello', likeCount: 10},
             {id: 2, message: 'hiho', likeCount: 5}
         ],
         newPostText: 'LolXd'
     },
-    dialogsPage:{
-        users:[
+    dialogsPage: {
+        users: [
             {id: 1, name: 'Алеша'},
             {id: 2, name: 'Володя'},
             {id: 3, name: 'Анюта'},
@@ -19,7 +17,7 @@ export const state = {
             {id: 6, name: 'Леся'},
             {id: 7, name: 'Зина'}
         ],
-        messages:[
+        messages: [
             {id: 1, message: 'hello there'},
             {id: 2, message: 'How r u doing?'},
             {id: 3, message: 'No comprende'}
@@ -27,20 +25,24 @@ export const state = {
     }
 }
 
-export const newPostTextEdit = (s:string)=>{
-    state.profilePage.newPostText=s
+export const newPostTextEdit = (s: string) => {
+    state.profilePage.newPostText = s
     rerenderEntireThree(state)
 }
 
-export const addPost = ()=>{
+export const addPost = () => {
     let newMessage = {
-        id:3,
+        id: 3,
         message: state.profilePage.newPostText,
-        likeCount:0
+        likeCount: 0
     }
     state.profilePage.posts.push(newMessage)
-    state.profilePage.newPostText=''
+    state.profilePage.newPostText = ''
     rerenderEntireThree(state)
 
+}
+
+export const subscribe = (observer:any) => {
+    rerenderEntireThree=observer
 }
 
