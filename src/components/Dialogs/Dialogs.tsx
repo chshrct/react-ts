@@ -1,7 +1,8 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import style from './Dialogs.module.css'
 import {MessageItem, messageType} from "./MessageItem/MessageItem";
 import {DialogItem, userType} from "./DialogItem/DialogItem";
+import {newMessageBodyActionCreator, sendMessageActionCreator} from "../../redux/state";
 
 type dialogsPageType = {
     users: Array<userType>
@@ -10,6 +11,7 @@ type dialogsPageType = {
 
 type DialogsStateType = {
     state: dialogsPageType
+    dispatch:any
 }
 
 
@@ -30,6 +32,14 @@ const Dialogs = (props: DialogsStateType) => {
                 message={msg.message}/>
         )
 
+    const onClickSendMessage = ()=>{
+        props.dispatch(sendMessageActionCreator())
+    }
+
+    const onChangeEditMessage = (e:ChangeEvent<HTMLTextAreaElement>)=>{
+        props.dispatch(newMessageBodyActionCreator(e.currentTarget.value))
+    }
+
     return (
         <div className={style.dialogs}>
 
@@ -40,8 +50,8 @@ const Dialogs = (props: DialogsStateType) => {
             <div className={style.messages}>
                 <div>{messagesList}</div>
                 <div>
-                    <div><textarea placeholder={'enter ur message'} ></textarea></div>
-                    <div><button></button></div>
+                    <div><textarea placeholder={'enter ur message'} onChange={onChangeEditMessage} >q</textarea></div>
+                    <div><button onClick={onClickSendMessage}>+</button></div>
                 </div>
             </div>
         </div>

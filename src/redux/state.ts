@@ -59,6 +59,7 @@ export const store = {
             const body = this._state.dialogsPage.newMessageText
             this._state.dialogsPage.messages.push({id: 5, message: body})
             this._state.dialogsPage.newMessageText = ''
+            this._callSubscriber(this._state)
         }
     }
 
