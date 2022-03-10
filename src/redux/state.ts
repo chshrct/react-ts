@@ -24,26 +24,28 @@ export const store = {
             ]
         }
     },
+    _callSubscriber(state:any){},
+    subscribe(observer:any){
+        this._callSubscriber=observer
+    },
     getState(){
         return this._state
     },
-    _callSubscriber(state:any){},
-    newPostTextEdit(s: string){
-        this._state.profilePage.newPostText = s
-        this._callSubscriber(this._state)
-    },
-    addPost(){
-        let newMessage = {
-            id: 3,
-            message: this._state.profilePage.newPostText,
-            likeCount: 0
-        }
-        this._state.profilePage.posts.push(newMessage)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state)
 
-    },
-    subscribe(observer:any){
-        this._callSubscriber=observer
+    dispatch(action:any){
+        if(action.type==='ADD-POST'){
+            let newMessage = {
+                id: 3,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            }
+            this._state.profilePage.posts.push(newMessage)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber(this._state)
+        }else if (action.type==='UPDATE-NEW-POST-TEXT'){
+            this._state.profilePage.newPostText = action.newPostText
+            this._callSubscriber(this._state)
+        }
     }
+
 }

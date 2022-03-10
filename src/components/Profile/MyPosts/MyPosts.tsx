@@ -7,9 +7,8 @@ import {postType} from "../Profile";
 
 type MyPostsType={
     myPosts:Array<postType>
-    addPost:()=>void
     newPostText:string
-    newPostTextEdit:(s:string)=>void
+    dispatch:any
 }
 
 function MyPosts(props:MyPostsType) {
@@ -18,16 +17,21 @@ function MyPosts(props:MyPostsType) {
         post=><Post key={post.id} id ={post.id} message={post.message} likeCount={post.likeCount}/>
     )
     const onPostChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.newPostTextEdit(e.currentTarget.value)
+        props.dispatch({
+            type:'UPDATE-NEW-POST-TEXT',
+            newPostText:e.currentTarget.value})
     }
-
+    const addPost =()=>{
+        props.dispatch({
+            type:'ADD-POST'})
+    }
     return (
         <div className={style.postsBlock}>
             <h2>My posts</h2>
             <div>
                 <textarea  value={props.newPostText} onChange={onPostChange}/>
                 <div>
-                    <button onClick={props.addPost}>add</button>
+                    <button onClick={addPost}>add</button>
                 </div>
             </div>
             <div>

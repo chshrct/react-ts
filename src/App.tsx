@@ -18,8 +18,7 @@ function App(props: any) {
                         path={'/profile/*'}
                         element={<Profile
                             state={props.state.profilePage}
-                            addPost={props.addPost}
-                            newPostTextEdit={props.newPostTextEdit}
+                            dispatch={props.dispatch}
                         />}/>
 
                     <Route

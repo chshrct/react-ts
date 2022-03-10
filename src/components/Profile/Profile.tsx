@@ -15,8 +15,7 @@ type profilePageType ={
 
 type profileStateType ={
     state:profilePageType
-    addPost:()=>void
-    newPostTextEdit:()=>void
+    dispatch:any
 }
 
 function Profile(props:profileStateType) {
@@ -25,9 +24,8 @@ function Profile(props:profileStateType) {
             <ProfileInfo/>
             <MyPosts
                 myPosts={props.state.posts}
-                addPost={props.addPost}
+                dispatch={props.dispatch}
                 newPostText={props.state.newPostText}
-                newPostTextEdit={props.newPostTextEdit}
             />
         </div>
 
