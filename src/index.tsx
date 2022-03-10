@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {addPost, newPostTextEdit, state, subscribe} from "./redux/state";
+import {store} from "./redux/state";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
@@ -11,9 +11,9 @@ const rerenderEntireThree = (state:any)=>{
         <React.StrictMode>
             <BrowserRouter>
                 <App
-                    state={state}
-                    addPost={addPost}
-                    newPostTextEdit={newPostTextEdit}
+                    state={store.getState()}
+                    addPost={store.addPost.bind(store)}
+                    newPostTextEdit={store.newPostTextEdit.bind(store)}
                 />
             </BrowserRouter>
         </React.StrictMode>,
@@ -21,8 +21,8 @@ const rerenderEntireThree = (state:any)=>{
     )
 }
 
-rerenderEntireThree(state)
-subscribe(rerenderEntireThree)
+rerenderEntireThree(store.getState())
+store.subscribe(rerenderEntireThree)
 
 
 // If you want to start measuring performance in your app, pass a function
