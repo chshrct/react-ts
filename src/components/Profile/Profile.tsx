@@ -1,5 +1,4 @@
-import React from 'react';
-import MyPosts from './MyPosts/MyPosts';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 export type postType ={
@@ -8,24 +7,16 @@ export type postType ={
     likeCount:number
 }
 
-type profilePageType ={
-    posts:Array<postType>
-    newPostText:string
-}
-
 type profileStateType ={
-    state:profilePageType
-    dispatch:any
+    store:any
 }
 
 function Profile(props:profileStateType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts
-                myPosts={props.state.posts}
-                dispatch={props.dispatch}
-                newPostText={props.state.newPostText}
+            <MyPostsContainer
+            store={props.store}
             />
         </div>
 

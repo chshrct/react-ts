@@ -2,26 +2,26 @@ import React, {ChangeEvent} from 'react';
 import style from './MyPosts.module.css'
 import Post from './Post/Post';
 import {postType} from "../Profile";
-import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/profile-reducer";
 
 
 type MyPostsType={
-    myPosts:Array<postType>
+    posts:Array<postType>
     newPostText:string
-    dispatch:any
+    onPostChange:(text:string)=>void
+    addPost:()=>void
 }
 
 function MyPosts(props:MyPostsType) {
 
-    let postsList = props.myPosts.map(
+    let postsList = props.posts.map(
         post=><Post key={post.id} id ={post.id} message={post.message} likeCount={post.likeCount}/>
     )
     const onPostChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
         let text = e.currentTarget.value;
-        props.dispatch(updateNewPostActionCreator(text))
+        props.onPostChange(text)
     }
-    const addPost =()=>{
-        props.dispatch(addPostActionCreator())
+    const onAddPost =()=>{
+        props.addPost()
     }
     return (
         <div className={style.postsBlock}>
@@ -29,7 +29,7 @@ function MyPosts(props:MyPostsType) {
             <div>
                 <textarea  value={props.newPostText} onChange={onPostChange}/>
                 <div>
-                    <button onClick={addPost}>add</button>
+                    <button onClick={onAddPost}>add</button>
                 </div>
             </div>
             <div>

@@ -1,43 +1,33 @@
 import React, {ChangeEvent} from "react";
+import { DialogItem, userType } from "./DialogItem/DialogItem";
 import style from './Dialogs.module.css'
-import {MessageItem, messageType} from "./MessageItem/MessageItem";
-import {DialogItem, userType} from "./DialogItem/DialogItem";
-import {newMessageBodyActionCreator, sendMessageActionCreator} from "../../redux/dialogs-reducer";
-
-type dialogsPageType = {
-    users: Array<userType>
-    messages: Array<messageType>
-}
+import { MessageItem, messageType } from "./MessageItem/MessageItem";
 
 type DialogsStateType = {
-    state: dialogsPageType
-    dispatch:any
+    onClickSendMessage:()=>void
+    onChangeEditMessage:(text:string)=>void
+    dialogsPage:any
 }
 
 
-const Dialogs = (props: DialogsStateType) => {
+export const Dialogs:React.FC<DialogsStateType> = (props) => {
 
-    const dialogsList = props.state.users
-        .map(
-            user => <DialogItem
-                key={user.id}
-                id={user.id}
-                name={user.name}/>
-        );
-    const messagesList = props.state.messages
-        .map(
-            msg => <MessageItem
-                key={msg.id}
-                id={msg.id}
-                message={msg.message}/>
-        )
+    const userslist: userType[] = props.dialogsPage.users;
+  const dialogsList = userslist.map((user) => (
+    <DialogItem key={user.id} id={user.id} name={user.name} />
+  ));
+
+  const messages: messageType[] = props.dialogsPage.messages
+   const messagesList = messages.map((msg) => (
+      <MessageItem key={msg.id} id={msg.id} message={msg.message} />
+    ));
 
     const onClickSendMessage = ()=>{
-        props.dispatch(sendMessageActionCreator())
+        props.onClickSendMessage()
     }
 
     const onChangeEditMessage = (e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.dispatch(newMessageBodyActionCreator(e.currentTarget.value))
+        props.onChangeEditMessage(e.currentTarget.value)
     }
 
     return (
@@ -57,6 +47,3 @@ const Dialogs = (props: DialogsStateType) => {
         </div>
     )
 }
-
-
-export default Dialogs

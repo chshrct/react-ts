@@ -10,7 +10,7 @@ const rerenderEntireThree = (state: any) => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App state={store.getState()} dispatch={store.dispatch.bind(store)} />
+        <App store={store}/>
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
@@ -19,7 +19,8 @@ const rerenderEntireThree = (state: any) => {
 
 rerenderEntireThree(store.getState());
 store.subscribe(() => {
-  rerenderEntireThree(store.getState())
+  let state = store.getState()
+  rerenderEntireThree(state)
 });
 
 // If you want to start measuring performance in your app, pass a function
