@@ -6,7 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 
 
-function App(props: any) {
+function App() {
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -15,12 +15,10 @@ function App(props: any) {
                 <Routes>
                     <Route
                         path={'/profile/*'}
-                        element={<Profile
-                            store={props.store}
-                        />}/>
+                        element={<Profile/>}/>
                     <Route
                         path={'/dialogs/*'}
-                        element={<DialogsContainer store={props.store}/>}/>
+                        element={<DialogsContainer/>}/>
                 </Routes>
             </div>
         </div>

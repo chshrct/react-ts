@@ -1,31 +1,29 @@
-import { MessageItem, messageType } from "./MessageItem/MessageItem";
-import { DialogItem, userType } from "./DialogItem/DialogItem";
 import {
   newMessageBodyActionCreator,
   sendMessageActionCreator,
 } from "../../redux/dialogs-reducer";
+import StoreContext from "../../StoreContext";
 import { Dialogs } from "./Dialogs";
 
-type DialogsDialogsContainerPropsType = {
-  store: any;
-};
-
-export const DialogsContainer = (props: DialogsDialogsContainerPropsType) => {
-
-  const onClickSendMessage = () => {
-    props.store.dispatch(sendMessageActionCreator());
-  };
-
-  const onChangeEditMessage = (text: string) => {
-      debugger
-    props.store.dispatch(newMessageBodyActionCreator(text));
-  };
-
+export const DialogsContainer = () => {
   return (
-    <Dialogs
-      onClickSendMessage={onClickSendMessage}
-      onChangeEditMessage={onChangeEditMessage}
-      dialogsPage={props.store.getState().dialogsPage}
-    />
+    <StoreContext.Consumer>
+      {(store: any) => {
+        const onClickSendMessage = () => {
+          store.dispatch(sendMessageActionCreator());
+        };
+
+        const onChangeEditMessage = (text: string) => {
+          store.dispatch(newMessageBodyActionCreator(text));
+        };
+        return (
+          <Dialogs
+            onClickSendMessage={onClickSendMessage}
+            onChangeEditMessage={onChangeEditMessage}
+            dialogsPage={store.getState().dialogsPage}
+          />
+        );
+      }}
+    </StoreContext.Consumer>
   );
 };

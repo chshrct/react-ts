@@ -1,11 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import style from './MyPosts.module.css'
 import Post from './Post/Post';
-import {postType} from "../Profile";
 
 
 type MyPostsType={
-    posts:Array<postType>
+    posts:any[]
     newPostText:string
     onPostChange:(text:string)=>void
     addPost:()=>void
