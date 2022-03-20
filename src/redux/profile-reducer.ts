@@ -19,12 +19,12 @@ export const profileReducer = (state: any = initialState, action: any) => {
       };
       state.posts.push(newMessage);
       state.newPostText = "";
-      return state;
+      return {...state};
     case UPADATE_NEW_POST_TEXT:
       state.newPostText = action.newPostText;
-      return state;
+      return {...state};
     default:
-      return state;
+      return {...state};
   }
 };
 

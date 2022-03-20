@@ -2,7 +2,7 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 
-function Profile() {
+const Profile:React.FC = () => {
     return (
         <div>
             <ProfileInfo/>
