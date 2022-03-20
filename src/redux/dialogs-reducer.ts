@@ -6,15 +6,10 @@ const initialState = {
     { id: 1, name: "Алеша" },
     { id: 2, name: "Володя" },
     { id: 3, name: "Анюта" },
-    { id: 4, name: "Федя" },
-    { id: 5, name: "Вика" },
-    { id: 6, name: "Леся" },
-    { id: 7, name: "Зина" },
   ],
   messages: [
     { id: 1, message: "hello there" },
     { id: 2, message: "How r u doing?" },
-    { id: 3, message: "No comprende" },
   ],
   newMessageText: "qwe",
 };
