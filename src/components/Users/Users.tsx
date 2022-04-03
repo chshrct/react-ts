@@ -2,14 +2,14 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { UsersPropsType } from "./UsersContainer";
 
-const Users: React.FC<UsersPropsType> = (props) => {
+const Users: React.FC<UsersPropsType> = ({users,setUsers,follow,unfollow}) => {
   useEffect(() => {
     axios
       .get("https://social-network.samuraijs.com/api/1.0/users")
       .then((response) => {
-        props.setUsers(response.data.items);
+        setUsers(response.data.items);
       });
-  });
+  },[users]);
 
   return (
     <div>
@@ -29,9 +29,9 @@ const Users: React.FC<UsersPropsType> = (props) => {
             </div>
             <div>
               {u.followed ? (
-                <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
+                <button onClick={() => unfollow(u.id)}>Unfollow</button>
               ) : (
-                <button onClick={() => props.follow(u.id)}>Follow</button>
+                <button onClick={() => follow(u.id)}>Follow</button>
               )}
             </div>
           </span>
