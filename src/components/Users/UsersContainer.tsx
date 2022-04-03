@@ -32,7 +32,7 @@ type MapDispatchToPropsType = {
 export type UsersPropsType = MapDispatchToPropsType & MapStateToPropsType;
 
 class UsersAPIComponent extends Component<UsersPropsType> {
-  onPageSelect(page: number) {
+  onPageSelect = (page: number) => {
     this.props.setCurrentPage(page);
     axios
       .get(
@@ -41,7 +41,7 @@ class UsersAPIComponent extends Component<UsersPropsType> {
       .then((response) => {
         this.props.setUsers(response.data.items);
       });
-  }
+  };
 
   componentDidMount() {
     axios
