@@ -12,12 +12,17 @@ export type UserType = {
 
 export type UsersStateType = {
   users: Array<UserType>;
+  pageSize: number;
+  totalUsersCount: number;
+  currentPage: number;
 };
 
 enum UsersActionsType {
   setUsers = "SET_USERS",
   follow = "FOLLOW",
   unfollow = "UNFOLLOW",
+  setCurrentPage = "SET_CURRENT_PAGE",
+  setTotalUsersCount = 'SET_TOTAL_USERS_COUNT'
 }
 type followActionType = {
   type: UsersActionsType.follow;
@@ -31,14 +36,27 @@ type setUsersActionType = {
   type: UsersActionsType.setUsers;
   users: Array<UserType>;
 };
+type setCurrentPageActionType = {
+  type: UsersActionsType.setCurrentPage;
+  currentPage: number;
+};
+type setTotalUsersCountActionType = {
+  type: UsersActionsType.setTotalUsersCount;
+  totalUsersCount: number;
+};
 
 export type RootActionType =
   | setUsersActionType
   | followActionType
-  | unfollowActionType;
+  | unfollowActionType
+  | setCurrentPageActionType
+  | setTotalUsersCountActionType;
 
 const initialState: UsersStateType = {
   users: [],
+  pageSize: 5,
+  totalUsersCount: 0,
+  currentPage: 2,
 };
 
 const usersReducer = (
@@ -63,7 +81,17 @@ const usersReducer = (
     case UsersActionsType.setUsers:
       return {
         ...state,
-        users: [...state.users, ...action.users],
+        users: action.users,
+      };
+    case UsersActionsType.setCurrentPage:
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
+    case UsersActionsType.setTotalUsersCount:
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount,
       };
 
     default:
@@ -87,6 +115,22 @@ export const unfollowAC = (userId: number): unfollowActionType => {
   return {
     type: UsersActionsType.unfollow,
     userId: userId,
+  };
+};
+export const setCurrentPageAC = (
+  currentPage: number
+): setCurrentPageActionType => {
+  return {
+    type: UsersActionsType.setCurrentPage,
+    currentPage,
+  };
+};
+export const setTotalUsersCountAC = (
+  totalUsersCount: number
+): setTotalUsersCountActionType => {
+  return {
+    type: UsersActionsType.setTotalUsersCount,
+    totalUsersCount,
   };
 };
 
