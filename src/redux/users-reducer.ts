@@ -1,14 +1,13 @@
-type LocationType = {
-  country: string;
-  city: string;
-};
 export type UserType = {
+  name: string;
   id: number;
-  avatarUrl: string;
-  fullname: string;
-  status: string;
-  follow: boolean;
-  location: LocationType;
+  uniqueUrlName: null;
+  photos: {
+    small: string;
+    large: string;
+  };
+  status: null;
+  followed: boolean;
 };
 
 export type UsersStateType = {
@@ -51,14 +50,14 @@ const usersReducer = (
       return {
         ...state,
         users: state.users.map((u) =>
-          u.id === action.userId ? { ...u, follow: true } : { ...u }
+          u.id === action.userId ? { ...u, followed: true } : { ...u }
         ),
       };
     case UsersActionsType.unfollow:
       return {
         ...state,
         users: state.users.map((u) =>
-          u.id === action.userId ? { ...u, follow: false } : { ...u }
+          u.id === action.userId ? { ...u, followed: false } : { ...u }
         ),
       };
     case UsersActionsType.setUsers:
@@ -68,7 +67,7 @@ const usersReducer = (
       };
 
     default:
-      return { ...state };
+      return state;
   }
 };
 
