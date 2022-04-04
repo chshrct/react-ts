@@ -1,37 +1,21 @@
 import axios from "axios";
 import { Component } from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import { AppStateType } from "../../redux/redux-store";
 import {
-  followAC,
-  RootActionType,
-  setCurrentPageAC,
-  setFetchPreloaderAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  unfollowAC,
-  UserType,
+  follow,
+  setCurrentPage,
+  setFetchPreloader,
+  setTotalUsersCount,
+  setUsers,
+  unfollow,
 } from "../../redux/users-reducer";
 import Preloader from "../../shared/Preloader/Preloader";
 import Users from "./Users";
 
-type MapStateToPropsType = {
-  users: UserType[];
-  pageSize: number;
-  totalUsersCount: number;
-  currentPage: number;
-  isFetching: boolean;
-};
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-type MapDispatchToPropsType = {
-  setUsers: (users: Array<UserType>) => void;
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
-  setCurrentPage: (currentPage: number) => void;
-  setTotalUsersCount: (totalUsersCount: number) => void;
-  setFetchPreloader: (isFetching: boolean) => void;
-};
+type MapDispatchToPropsType = typeof mapDispatchToProps
 
 export type UsersPropsType = MapDispatchToPropsType & MapStateToPropsType;
 
@@ -80,7 +64,7 @@ class UsersAPIComponent extends Component<UsersPropsType> {
   }
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+const mapStateToProps = (state: AppStateType) => {
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
@@ -90,29 +74,14 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   };
 };
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<RootActionType>
-): MapDispatchToPropsType => {
-  return {
-    setUsers: (users: Array<UserType>) => {
-      dispatch(setUsersAC(users));
-    },
-    follow: (userId: number) => {
-      dispatch(followAC(userId));
-    },
-    unfollow: (userId: number) => {
-      dispatch(unfollowAC(userId));
-    },
-    setCurrentPage: (currentPage: number) => {
-      dispatch(setCurrentPageAC(currentPage));
-    },
-    setTotalUsersCount: (totalUsersCount: number) => {
-      dispatch(setTotalUsersCountAC(totalUsersCount));
-    },
-    setFetchPreloader: (isFetching: boolean) => {
-      dispatch(setFetchPreloaderAC(isFetching));
-    },
-  };
+const mapDispatchToProps ={
+    setUsers,
+    follow,
+    unfollow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setFetchPreloader,
+
 };
 const UsersContainer = connect(
   mapStateToProps,

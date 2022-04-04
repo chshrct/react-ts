@@ -112,25 +112,25 @@ const usersReducer = (
   }
 };
 
-export const setUsersAC = (users: Array<UserType>): setUsersActionType => {
+export const setUsers = (users: Array<UserType>): setUsersActionType => {
   return {
     type: UsersActionsType.setUsers,
     users: users,
   };
 };
-export const followAC = (userId: number): followActionType => {
+export const follow = (userId: number): followActionType => {
   return {
     type: UsersActionsType.follow,
     userId: userId,
   };
 };
-export const unfollowAC = (userId: number): unfollowActionType => {
+export const unfollow = (userId: number): unfollowActionType => {
   return {
     type: UsersActionsType.unfollow,
     userId: userId,
   };
 };
-export const setCurrentPageAC = (
+export const setCurrentPage = (
   currentPage: number
 ): setCurrentPageActionType => {
   return {
@@ -138,7 +138,7 @@ export const setCurrentPageAC = (
     currentPage,
   };
 };
-export const setTotalUsersCountAC = (
+export const setTotalUsersCount = (
   totalUsersCount: number
 ): setTotalUsersCountActionType => {
   return {
@@ -146,7 +146,7 @@ export const setTotalUsersCountAC = (
     totalUsersCount,
   };
 };
-export const setFetchPreloaderAC = (
+export const setFetchPreloader = (
   isFetching: boolean
 ): setFetchPreloaderActionType => {
   return {
