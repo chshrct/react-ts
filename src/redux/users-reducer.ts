@@ -15,6 +15,7 @@ export type UsersStateType = {
   pageSize: number;
   totalUsersCount: number;
   currentPage: number;
+  isFetching: boolean;
 };
 
 enum UsersActionsType {
@@ -22,7 +23,8 @@ enum UsersActionsType {
   follow = "FOLLOW",
   unfollow = "UNFOLLOW",
   setCurrentPage = "SET_CURRENT_PAGE",
-  setTotalUsersCount = 'SET_TOTAL_USERS_COUNT'
+  setTotalUsersCount = "SET_TOTAL_USERS_COUNT",
+  setFetchPreloader = "SET_FETCH_PRELOADER",
 }
 type followActionType = {
   type: UsersActionsType.follow;
@@ -44,19 +46,25 @@ type setTotalUsersCountActionType = {
   type: UsersActionsType.setTotalUsersCount;
   totalUsersCount: number;
 };
+type setFetchPreloaderActionType = {
+  type: UsersActionsType.setFetchPreloader;
+  isFetching: boolean;
+};
 
 export type RootActionType =
   | setUsersActionType
   | followActionType
   | unfollowActionType
   | setCurrentPageActionType
-  | setTotalUsersCountActionType;
+  | setTotalUsersCountActionType
+  | setFetchPreloaderActionType;
 
 const initialState: UsersStateType = {
   users: [],
   pageSize: 5,
   totalUsersCount: 0,
   currentPage: 1,
+  isFetching: false,
 };
 
 const usersReducer = (
@@ -92,6 +100,11 @@ const usersReducer = (
       return {
         ...state,
         totalUsersCount: action.totalUsersCount,
+      };
+    case UsersActionsType.setFetchPreloader:
+      return {
+        ...state,
+        isFetching: action.isFetching,
       };
 
     default:
@@ -131,6 +144,14 @@ export const setTotalUsersCountAC = (
   return {
     type: UsersActionsType.setTotalUsersCount,
     totalUsersCount,
+  };
+};
+export const setFetchPreloaderAC = (
+  isFetching: boolean
+): setFetchPreloaderActionType => {
+  return {
+    type: UsersActionsType.setFetchPreloader,
+    isFetching,
   };
 };
 
