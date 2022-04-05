@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import Preloader from "../../../shared/Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
 
@@ -6,7 +6,7 @@ type PropsType = {
   profile: any;
 };
 
-export const ProfileInfo: React.FC<PropsType> = ({ profile }) => {
+export const ProfileInfo:FC<PropsType> = ({ profile }) => {
   if (!profile) {
     return <Preloader />;
   } else {
