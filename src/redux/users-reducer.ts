@@ -18,7 +18,7 @@ export type UsersStateType = {
   isFetching: boolean;
 };
 
-enum UsersActionsType {
+enum UsersActionsTypes {
   setUsers = "SET_USERS",
   follow = "FOLLOW",
   unfollow = "UNFOLLOW",
@@ -27,27 +27,27 @@ enum UsersActionsType {
   setFetchPreloader = "SET_FETCH_PRELOADER",
 }
 type followActionType = {
-  type: UsersActionsType.follow;
+  type: UsersActionsTypes.follow;
   userId: number;
 };
 type unfollowActionType = {
-  type: UsersActionsType.unfollow;
+  type: UsersActionsTypes.unfollow;
   userId: number;
 };
 type setUsersActionType = {
-  type: UsersActionsType.setUsers;
+  type: UsersActionsTypes.setUsers;
   users: Array<UserType>;
 };
 type setCurrentPageActionType = {
-  type: UsersActionsType.setCurrentPage;
+  type: UsersActionsTypes.setCurrentPage;
   currentPage: number;
 };
 type setTotalUsersCountActionType = {
-  type: UsersActionsType.setTotalUsersCount;
+  type: UsersActionsTypes.setTotalUsersCount;
   totalUsersCount: number;
 };
 type setFetchPreloaderActionType = {
-  type: UsersActionsType.setFetchPreloader;
+  type: UsersActionsTypes.setFetchPreloader;
   isFetching: boolean;
 };
 
@@ -59,7 +59,7 @@ export type RootActionType =
   | setTotalUsersCountActionType
   | setFetchPreloaderActionType;
 
-const initialState: UsersStateType = {
+const initState: UsersStateType = {
   users: [],
   pageSize: 5,
   totalUsersCount: 0,
@@ -68,40 +68,40 @@ const initialState: UsersStateType = {
 };
 
 const usersReducer = (
-  state: UsersStateType = initialState,
+  state: UsersStateType = initState,
   action: RootActionType
 ): UsersStateType => {
   switch (action.type) {
-    case UsersActionsType.follow:
+    case UsersActionsTypes.follow:
       return {
         ...state,
         users: state.users.map((u) =>
           u.id === action.userId ? { ...u, followed: true } : { ...u }
         ),
       };
-    case UsersActionsType.unfollow:
+    case UsersActionsTypes.unfollow:
       return {
         ...state,
         users: state.users.map((u) =>
           u.id === action.userId ? { ...u, followed: false } : { ...u }
         ),
       };
-    case UsersActionsType.setUsers:
+    case UsersActionsTypes.setUsers:
       return {
         ...state,
         users: action.users,
       };
-    case UsersActionsType.setCurrentPage:
+    case UsersActionsTypes.setCurrentPage:
       return {
         ...state,
         currentPage: action.currentPage,
       };
-    case UsersActionsType.setTotalUsersCount:
+    case UsersActionsTypes.setTotalUsersCount:
       return {
         ...state,
         totalUsersCount: action.totalUsersCount,
       };
-    case UsersActionsType.setFetchPreloader:
+    case UsersActionsTypes.setFetchPreloader:
       return {
         ...state,
         isFetching: action.isFetching,
@@ -114,19 +114,19 @@ const usersReducer = (
 
 export const setUsers = (users: Array<UserType>): setUsersActionType => {
   return {
-    type: UsersActionsType.setUsers,
+    type: UsersActionsTypes.setUsers,
     users: users,
   };
 };
 export const follow = (userId: number): followActionType => {
   return {
-    type: UsersActionsType.follow,
+    type: UsersActionsTypes.follow,
     userId: userId,
   };
 };
 export const unfollow = (userId: number): unfollowActionType => {
   return {
-    type: UsersActionsType.unfollow,
+    type: UsersActionsTypes.unfollow,
     userId: userId,
   };
 };
@@ -134,7 +134,7 @@ export const setCurrentPage = (
   currentPage: number
 ): setCurrentPageActionType => {
   return {
-    type: UsersActionsType.setCurrentPage,
+    type: UsersActionsTypes.setCurrentPage,
     currentPage,
   };
 };
@@ -142,7 +142,7 @@ export const setTotalUsersCount = (
   totalUsersCount: number
 ): setTotalUsersCountActionType => {
   return {
-    type: UsersActionsType.setTotalUsersCount,
+    type: UsersActionsTypes.setTotalUsersCount,
     totalUsersCount,
   };
 };
@@ -150,7 +150,7 @@ export const setFetchPreloader = (
   isFetching: boolean
 ): setFetchPreloaderActionType => {
   return {
-    type: UsersActionsType.setFetchPreloader,
+    type: UsersActionsTypes.setFetchPreloader,
     isFetching,
   };
 };

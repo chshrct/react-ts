@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { UserType } from "../../redux/users-reducer";
 import s from "./Users.module.css";
 
@@ -29,28 +30,32 @@ const Users: React.FC<PropsType> = (props) => {
   }
   return (
     <div>
-      {pages.map((page) => (
-        <span
-          key={page}
-          className={currentPage === page ? s.selected : ""}
-          onClick={() => onPageSelect(page)}
-        >
-          {page}
-        </span>
-      ))}
+      <div className={s.pagination}>
+        {pages.map((page) => (
+          <span
+            key={page}
+            className={currentPage === page ? s.selected : ""}
+            onClick={() => onPageSelect(page)}
+          >
+            {page}
+          </span>
+        ))}
+      </div>
       {users.map((u) => (
         <div key={u.id}>
           <span>
             <div>
-              <img
-                src={
-                  u.photos.small !== null
-                    ? u.photos.small
-                    : "https://cdn-icons-png.flaticon.com/512/147/147142.png"
-                }
-                alt="avatar"
-                width={"100px"}
-              />
+              <NavLink to={`/profile/${u.id}`}>
+                <img
+                  src={
+                    u.photos.small !== null
+                      ? u.photos.small
+                      : "https://cdn-icons-png.flaticon.com/512/147/147142.png"
+                  }
+                  alt="avatar"
+                  width={"100px"}
+                />
+              </NavLink>
             </div>
             <div>
               {u.followed ? (

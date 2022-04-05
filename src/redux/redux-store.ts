@@ -6,10 +6,10 @@ import usersReducer from "./users-reducer";
 let rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
-  usersPage:usersReducer
+  usersPage: usersReducer,
 });
 
-export type AppStateType = ReturnType<typeof rootReducer>
+export type AppStateType = ReturnType<typeof rootReducer>;
 
 let store = createStore(rootReducer);
 

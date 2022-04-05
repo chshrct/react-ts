@@ -15,6 +15,12 @@
     background-color: yellow;
 }
 
+.app-wrapper-header {
+  grid-area: header;
+  background-color: green;
+}
 
-
-
+.app-wrapper-nav {
+  grid-area: nav;
+  background-color: royalblue;
+}
