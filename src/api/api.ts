@@ -14,4 +14,17 @@ export const usersApi = {
       .get(`/users?page=${currentPage}&count=${pageSize}`)
       .then((response) => response.data);
   },
+  deleteFollow(userId:number){
+    return social
+    .delete(
+      `follow/${userId}`,
+    )
+  },
+  putFollow(userId:number){
+    return  social
+    .post(
+      `/follow/${userId}`,
+      null,
+    )
+  }
 };

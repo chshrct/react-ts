@@ -16,6 +16,7 @@ export type UsersStateType = {
   totalUsersCount: number;
   currentPage: number;
   isFetching: boolean;
+  isFollowInProgress: number[];
 };
 
 enum UsersActionsTypes {
@@ -25,6 +26,7 @@ enum UsersActionsTypes {
   setCurrentPage = "SET_CURRENT_PAGE",
   setTotalUsersCount = "SET_TOTAL_USERS_COUNT",
   setFetchPreloader = "SET_FETCH_PRELOADER",
+  setFollowInProgress = "SET_FOLLOW_IN_PROGRESS",
 }
 type followActionType = {
   type: UsersActionsTypes.follow;
@@ -51,13 +53,20 @@ type setFetchPreloaderActionType = {
   isFetching: boolean;
 };
 
+type setFollowInProgressActionType = {
+  type: UsersActionsTypes.setFollowInProgress;
+  userId: number;
+  inProgress: boolean;
+};
+
 export type RootActionType =
   | setUsersActionType
   | followActionType
   | unfollowActionType
   | setCurrentPageActionType
   | setTotalUsersCountActionType
-  | setFetchPreloaderActionType;
+  | setFetchPreloaderActionType
+  | setFollowInProgressActionType;
 
 const initState: UsersStateType = {
   users: [],
@@ -65,6 +74,7 @@ const initState: UsersStateType = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
+  isFollowInProgress: [],
 };
 
 const usersReducer = (
@@ -106,6 +116,18 @@ const usersReducer = (
         ...state,
         isFetching: action.isFetching,
       };
+    case UsersActionsTypes.setFollowInProgress:
+      return action.inProgress
+        ? {
+            ...state,
+            isFollowInProgress: [...state.isFollowInProgress, action.userId],
+          }
+        : {
+            ...state,
+            isFollowInProgress: state.isFollowInProgress.filter(
+              (el) => el !== action.userId
+            ),
+          };
 
     default:
       return state;
@@ -154,5 +176,14 @@ export const setFetchPreloader = (
     isFetching,
   };
 };
+
+export const setFollowInProgress = (
+  userId: number,
+  inProgress: boolean
+): setFollowInProgressActionType => ({
+  type: UsersActionsTypes.setFollowInProgress,
+  userId,
+  inProgress,
+});
 
 export default usersReducer;
