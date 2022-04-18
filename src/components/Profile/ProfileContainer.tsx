@@ -11,8 +11,6 @@ type MapStateToProps = ReturnType<typeof mapStateToProps>;
 
 const ProfileContainer: FC<MapDispatchToProps & MapStateToProps> = (props) => {
   const param = useParams()
-  console.log(param);
-  
   useEffect(() => {
     axios
       .get(`https://social-network.samuraijs.com/api/1.0//profile/${param['*']}`)
