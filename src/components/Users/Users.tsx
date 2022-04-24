@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { usersApi } from "../../api/api";
@@ -12,8 +11,8 @@ type PropsType = {
   users: UserType[];
   isFollowInProgress: number[];
   onPageSelect: (page: number) => void;
-  unfollow: (userId: number) => void;
-  follow: (userId: number) => void;
+  unFollowUser: (userId: number) => void;
+  followUser: (userId: number) => void;
   setFollowInProgress: (userId: number, inProgress: boolean) => void;
 };
 
@@ -23,8 +22,8 @@ const Users: React.FC<PropsType> = (props) => {
     pageSize,
     currentPage,
     users,
-    follow,
-    unfollow,
+    followUser,
+    unFollowUser,
     onPageSelect,
   } = props;
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -66,24 +65,16 @@ const Users: React.FC<PropsType> = (props) => {
                 <button
                   disabled={props.isFollowInProgress.includes(u.id)}
                   onClick={() => {
-                    props.setFollowInProgress(u.id, true);
-                    usersApi.deleteFollow(u.id).then((response) => {
-                      unfollow(u.id);
-                      props.setFollowInProgress(u.id, false);
-                    });
+                    unFollowUser(u.id);
                   }}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button
-                disabled={props.isFollowInProgress.includes(u.id)}
+                  disabled={props.isFollowInProgress.includes(u.id)}
                   onClick={() => {
-                    props.setFollowInProgress(u.id, true);
-                    usersApi.putFollow(u.id).then((response) => {
-                      follow(u.id);
-                      props.setFollowInProgress(u.id, false);
-                    });
+                    followUser(u.id);
                   }}
                 >
                   Follow

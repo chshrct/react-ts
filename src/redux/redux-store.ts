@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import thunk from "redux-thunk";
 import authReducer from "./auth-reducer";
 import { dialogsReducer } from "./dialogs-reducer";
 import { profileReducer } from "./profile-reducer";
@@ -12,11 +13,9 @@ let rootReducer = combineReducers({
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>;
-
-let store = createStore(
-  rootReducer,
-  //@ts-ignore
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)
+  ));
 
 export default store;
