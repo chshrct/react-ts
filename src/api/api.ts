@@ -14,17 +14,21 @@ export const usersApi = {
       .get(`/users?page=${currentPage}&count=${pageSize}`)
       .then((response) => response.data);
   },
-  unFollow(userId:number){
-    return social
-    .delete(
-      `follow/${userId}`,
-    )
+  unFollow(userId: number) {
+    return social.delete(`follow/${userId}`);
   },
-  Follow(userId:number){
-    return  social
-    .post(
-      `/follow/${userId}`,
-      null,
-    )
-  }
+  Follow(userId: number) {
+    return social.post(`/follow/${userId}`, null);
+  },
+};
+
+export const profileApi = {
+  getUserProfile(userId: number) {
+    return social.get(`profile/${userId}`);
+  },
+};
+export const authApi = {
+  me() {
+    return social.get('auth/me');
+  },
 };

@@ -1,3 +1,7 @@
+import { ThunkAction } from "redux-thunk";
+import { profileApi } from "../api/api";
+import { AppStateType } from "./redux-store";
+
 type MessageType = {
   id: number;
   message: string;
@@ -33,6 +37,31 @@ type RootActionType =
   | UpdateNewPostActionType
   | SetUserProfileActionType;
 
+type ThunkActionType = ThunkAction<void, AppStateType, unknown, RootActionType>;
+type contacts = {
+  github: string;
+  vk: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  website: string;
+  youtube: string;
+  mainLink: string;
+};
+type photos = {
+  small: string;
+  large: string;
+};
+
+type ProfileType = {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: contacts;
+  photos: photos;
+};
+
 const initState: ProfileStateType = {
   posts: [
     { id: 1, message: "hello", likeCount: 10 },
@@ -66,6 +95,8 @@ export const profileReducer = (
   }
 };
 
+//Action
+
 export const addPost = (): AddPostActionType => ({
   type: ProfileActionsTypes.addPost,
 });
@@ -75,7 +106,19 @@ export const updateNewPost = (text: string): UpdateNewPostActionType => ({
   text,
 });
 
-export const setUserProfile = (profile: any): SetUserProfileActionType => ({
+export const setUserProfile = (
+  profile: ProfileType
+): SetUserProfileActionType => ({
   type: ProfileActionsTypes.setUserProfile,
   profile,
 });
+
+//Thunk
+
+export const getUserProfile =
+  (userId: number): ThunkActionType =>
+  (dispatch) => {
+    profileApi.getUserProfile(userId).then((response) => {
+      dispatch(setUserProfile(response.data));
+    });
+  };

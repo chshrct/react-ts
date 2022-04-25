@@ -10,8 +10,6 @@ import {
 import Preloader from "../../shared/Preloader/Preloader";
 import Users from "./Users";
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
 class UsersAPIComponent extends Component<PropsFromRedux> {
   onPageSelect = (page: number) => {
     this.props.getUsers(page, this.props.pageSize);
@@ -61,5 +59,7 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 const UsersContainer = connector(UsersAPIComponent);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export default UsersContainer;

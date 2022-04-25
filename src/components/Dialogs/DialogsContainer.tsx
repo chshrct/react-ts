@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import {
   newMessageBodyActionCreator,
   sendMessageActionCreator,
@@ -12,7 +13,7 @@ const mapStateToProps = (state: AppStateType) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onClickSendMessage: () => {
       dispatch(sendMessageActionCreator());
