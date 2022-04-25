@@ -11,7 +11,7 @@ type MessageType = {
 type ProfileStateType = {
   posts: MessageType[];
   newPostText: string;
-  profile: any;
+  profile: ProfileType | null;
 };
 
 enum ProfileActionsTypes {
@@ -53,7 +53,7 @@ type photos = {
   large: string;
 };
 
-type ProfileType = {
+export type ProfileType = {
   userId: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;

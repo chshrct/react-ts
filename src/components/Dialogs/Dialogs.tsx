@@ -1,17 +1,21 @@
 import React, { ChangeEvent } from "react";
+import { Navigate } from "react-router-dom";
+import { DialogsStateType } from "../../redux/dialogs-reducer";
 import { DialogItem, userType } from "./DialogItem/DialogItem";
 import style from "./Dialogs.module.css";
 import { MessageItem, messageType } from "./MessageItem/MessageItem";
 
-type DialogsStateType = {
+type DialogsPropsType = {
   onClickSendMessage: () => void;
   onChangeEditMessage: (text: string) => void;
-  dialogsPage: any;
+  dialogsPage: DialogsStateType;
+  isAuth: boolean;
 };
 
-export const Dialogs: React.FC<DialogsStateType> = (props) => {
-  const userslist: userType[] = props.dialogsPage.users;
-  const dialogsList = userslist.map((user) => (
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+  if (!props.isAuth) return <Navigate to={'/login'} />;
+  const usersList: userType[] = props.dialogsPage.users;
+  const dialogsList = usersList.map((user) => (
     <DialogItem key={user.id} id={user.id} name={user.name} />
   ));
 

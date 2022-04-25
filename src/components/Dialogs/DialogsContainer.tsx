@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import {
-  newMessageBodyActionCreator,
-  sendMessageActionCreator,
+  newMessageBody,
+  sendMessage,
 } from "../../redux/dialogs-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import { Dialogs } from "./Dialogs";
@@ -10,16 +10,17 @@ import { Dialogs } from "./Dialogs";
 const mapStateToProps = (state: AppStateType) => {
   return {
     dialogsPage: state.dialogsPage,
+    isAuth: state.auth.isAuth
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onClickSendMessage: () => {
-      dispatch(sendMessageActionCreator());
+      dispatch(sendMessage());
     },
     onChangeEditMessage: (text: string) => {
-      dispatch(newMessageBodyActionCreator(text));
+      dispatch(newMessageBody(text));
     },
   };
 };

@@ -1,5 +1,32 @@
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
+enum DialogActionsTypes {
+  UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY",
+  SEND_MESSAGE = "SEND-MESSAGE",
+}
+
+type sendMessageAction = {
+  type: DialogActionsTypes.SEND_MESSAGE;
+};
+type newMessageBodyAction = {
+  type: DialogActionsTypes.UPDATE_NEW_MESSAGE_BODY;
+  body: string;
+};
+
+type RootAction = newMessageBodyAction | sendMessageAction;
+
+type User = {
+  id: number;
+  name: string;
+};
+type Message = {
+  id: number;
+  message: string;
+};
+
+export type DialogsStateType = {
+  users: User[];
+  messages: Message[];
+  newMessageText: string;
+};
 
 const initialState = {
   users: [
@@ -14,11 +41,14 @@ const initialState = {
   newMessageText: "qwe",
 };
 
-export const dialogsReducer = (state: any = initialState, action: any) => {
+export const dialogsReducer = (
+  state: DialogsStateType = initialState,
+  action: RootAction
+) => {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_BODY:
+    case DialogActionsTypes.UPDATE_NEW_MESSAGE_BODY:
       return { ...state, newMessageText: action.body };
-    case SEND_MESSAGE:
+    case DialogActionsTypes.SEND_MESSAGE:
       return {
         ...state,
         messages: [...state.messages, { id: 5, message: state.newMessageText }],
@@ -29,8 +59,10 @@ export const dialogsReducer = (state: any = initialState, action: any) => {
   }
 };
 
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
-export const newMessageBodyActionCreator = (body: string) => ({
-  type: UPDATE_NEW_MESSAGE_BODY,
-  body: body,
+export const sendMessage = (): sendMessageAction => ({
+  type: DialogActionsTypes.SEND_MESSAGE,
+});
+export const newMessageBody = (body: string): newMessageBodyAction => ({
+  type: DialogActionsTypes.UPDATE_NEW_MESSAGE_BODY,
+  body,
 });
