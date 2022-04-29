@@ -9,11 +9,9 @@ type DialogsPropsType = {
   onClickSendMessage: () => void;
   onChangeEditMessage: (text: string) => void;
   dialogsPage: DialogsStateType;
-  isAuth: boolean;
 };
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
-  if (!props.isAuth) return <Navigate to={'/login'} />;
   const usersList: userType[] = props.dialogsPage.users;
   const dialogsList = usersList.map((user) => (
     <DialogItem key={user.id} id={user.id} name={user.name} />
