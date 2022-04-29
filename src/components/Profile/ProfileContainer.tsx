@@ -1,6 +1,7 @@
-import { FC, useEffect } from "react";
+import { ComponentType, FC, useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { useParams } from "react-router-dom";
+import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/AuthRedirect/withAuthRedirect";
 import { getUserProfile } from "../../redux/profile-reducer";
 import { AppStateType } from "../../redux/redux-store";
@@ -26,9 +27,8 @@ const mapDispatchToProps = {
   getUserProfile,
 };
 
-const withRedirectProfileContainer = withAuthRedirect(ProfileContainer)
-
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ReduxPropsType = ConnectedProps<typeof connector>;
 
-export default connector(withRedirectProfileContainer);
+export default 
+compose<ComponentType>(connector,withAuthRedirect)(ProfileContainer)
