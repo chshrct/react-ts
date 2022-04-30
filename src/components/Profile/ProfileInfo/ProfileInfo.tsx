@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Preloader from "../../../shared/Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 type PropsType = {
   profile: any;
@@ -20,6 +21,7 @@ export const ProfileInfo:FC<PropsType> = ({ profile }) => {
         </div>
         <div className={style.descriptionBlock}>
           <img src={profile.photos.small} alt="ava" />
+          <ProfileStatus status="Ama Hasla Ama Gangsta"/>
           <div>{profile.lookingForAJobDescription}</div>
         </div>
       </div>
