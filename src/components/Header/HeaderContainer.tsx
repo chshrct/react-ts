@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { ConnectedProps } from "react-redux";
 import { connect } from "react-redux";
-import { AuthUser } from "../../redux/auth-reducer";
+import { authUser } from "../../redux/auth-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import Header from "./Header";
 
@@ -26,7 +26,7 @@ const mapStateToProps = (state: AppStateType) => ({
   email: state.auth.email,
   isAuth: state.auth.isAuth,
 });
-const mapDispatchToProps = { AuthUser };
+const mapDispatchToProps = { AuthUser: authUser };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ReduxPropsType = ConnectedProps<typeof connector>;

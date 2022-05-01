@@ -12,10 +12,12 @@ let rootReducer = combineReducers({
   auth: authReducer,
 });
 
-export type AppStateType = ReturnType<typeof rootReducer>;
 //@ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)
-  ));
-
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
+export type AppStateType = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
 export default store;

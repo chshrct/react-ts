@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { authApi } from "../api/api";
+import { authApi, LoginInfoType } from "../api/api";
 import { AppStateType } from "./redux-store";
 
 enum ActionTypes {
@@ -57,15 +57,25 @@ export const setUserData = (userId: number, email: string, login: string):SetUse
 
 //Thunk
 
-export const AuthUser = ():ThunkActionType => dispatch => {
-  authApi.me().then((resolve) => {
-    resolve.data.resultCode === 0 &&
+export const authUser = ():ThunkActionType => dispatch => {
+  authApi.me().then((response) => {
+    response.data.resultCode === 0 &&
       dispatch(setUserData(
-        resolve.data.data.id,
-        resolve.data.data.email,
-        resolve.data.data.login
+        response.data.data.id,
+        response.data.data.email,
+        response.data.data.login
       ))
   });
+}
+export const loginUser = (loginInfo:LoginInfoType):ThunkActionType => dispatch => {
+  authApi.login(loginInfo).then(response=>{
+    response.data.resultCode === 0 &&
+    dispatch(setUserData(
+      response.data.data.id,
+      response.data.data.email,
+      response.data.data.login
+    ))
+  })
 }
 
 export default authReducer;

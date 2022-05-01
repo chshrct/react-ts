@@ -1,5 +1,13 @@
 import axios from "axios";
 
+export type LoginInfoType = 
+  {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+  }
+
+
 const socialInstance = axios.create({
   baseURL: `https://social-network.samuraijs.com/api/1.0`,
   withCredentials: true,
@@ -37,4 +45,7 @@ export const authApi = {
   me() {
     return socialInstance.get('auth/me');
   },
+  login(loginInfo:LoginInfoType){
+    return socialInstance.post('/auth/login',loginInfo)
+  }
 };
