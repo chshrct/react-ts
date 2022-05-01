@@ -3,32 +3,58 @@ import { connect, ConnectedProps } from "react-redux";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/AuthRedirect/withAuthRedirect";
-import { getUserProfile } from "../../redux/profile-reducer";
+import {
+  getProfile,
+  getStatus,
+  updateStatus,
+} from "../../redux/profile-reducer";
 import { AppStateType } from "../../redux/redux-store";
 import Profile from "./Profile";
 
 const ProfileContainer: FC<ReduxPropsType> = (props) => {
-  const { profile, getUserProfile } = props;
+  const {
+    getProfile: getUserProfile,
+    getStatus,
+    authUserId,
+    profile,
+    status,
+    updateStatus,
+  } = props;
   const param = useParams();
-  
-  useEffect(() => {
-    param["*"] ? getUserProfile(Number(param["*"])) : getUserProfile(2);
-  }, [param, getUserProfile]);
 
-  return <Profile {...props} profile={profile} />;
+  useEffect(() => {
+    const userId = param["*"] ? +param["*"] : authUserId;
+    getUserProfile(userId!);
+    getStatus(userId!);
+  }, [authUserId, getStatus, getUserProfile, param]);
+
+  return (
+    <Profile
+      {...props}
+      profile={profile}
+      status={status}
+      updateStatus={updateStatus}
+    />
+  );
 };
 
 const mapStateToProps = (state: AppStateType) => {
   return {
-    profile: state.profilePage.profile
+    authUserId: state.auth.userId,
+    profile: state.profilePage.profile,
+    status: state.profilePage.status,
   };
 };
 const mapDispatchToProps = {
-  getUserProfile,
+  getProfile,
+  getStatus,
+  updateStatus,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ReduxPropsType = ConnectedProps<typeof connector>;
 
-export default 
-compose<ComponentType>(connector,withAuthRedirect)(ProfileContainer)
+export default compose<ComponentType>(
+  connector,
+  withAuthRedirect
+)(ProfileContainer);

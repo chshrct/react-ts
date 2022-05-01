@@ -12,30 +12,38 @@ type ProfileStateType = {
   posts: MessageType[];
   newPostText: string;
   profile: ProfileType | null;
+  status: string;
 };
 
 enum ProfileActionsTypes {
-  addPost = "ADD_POST",
-  updateNewPostText = "UPDATE_NEW_POST_TEXT",
-  setUserProfile = "SET_USER_PROFILE",
+  ADD_POST = "ADD_POST",
+  UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT",
+  SET_PROFILE = "SET_USER_PROFILE",
+  SET_STATUS = "SET_USER_STATUS",
 }
 
 type AddPostActionType = {
-  type: ProfileActionsTypes.addPost;
+  type: ProfileActionsTypes.ADD_POST;
 };
 type UpdateNewPostActionType = {
-  type: ProfileActionsTypes.updateNewPostText;
+  type: ProfileActionsTypes.UPDATE_NEW_POST_TEXT;
   text: string;
 };
 type SetUserProfileActionType = {
-  type: ProfileActionsTypes.setUserProfile;
+  type: ProfileActionsTypes.SET_PROFILE;
   profile: any;
+};
+
+type setUserStatusActionType = {
+  type: ProfileActionsTypes.SET_STATUS;
+  status: string;
 };
 
 type RootActionType =
   | AddPostActionType
   | UpdateNewPostActionType
-  | SetUserProfileActionType;
+  | SetUserProfileActionType
+  | setUserStatusActionType;
 
 type ThunkActionType = ThunkAction<void, AppStateType, unknown, RootActionType>;
 type contacts = {
@@ -69,6 +77,7 @@ const initState: ProfileStateType = {
   ],
   newPostText: "LolXd",
   profile: null,
+  status: "",
 };
 
 export const profileReducer = (
@@ -76,7 +85,7 @@ export const profileReducer = (
   action: RootActionType
 ) => {
   switch (action.type) {
-    case ProfileActionsTypes.addPost:
+    case ProfileActionsTypes.ADD_POST:
       let newMessage = {
         id: 3,
         message: state.newPostText,
@@ -85,40 +94,63 @@ export const profileReducer = (
       state.posts.push(newMessage);
       state.newPostText = "";
       return { ...state };
-    case ProfileActionsTypes.updateNewPostText:
+    case ProfileActionsTypes.UPDATE_NEW_POST_TEXT:
       state.newPostText = action.text;
       return { ...state };
-    case ProfileActionsTypes.setUserProfile:
+    case ProfileActionsTypes.SET_PROFILE:
       return { ...state, profile: action.profile };
     default:
       return { ...state };
+    case ProfileActionsTypes.SET_STATUS:
+      return { ...state, status: action.status };
   }
 };
 
 //Action
 
 export const addPost = (): AddPostActionType => ({
-  type: ProfileActionsTypes.addPost,
+  type: ProfileActionsTypes.ADD_POST,
 });
 
 export const updateNewPost = (text: string): UpdateNewPostActionType => ({
-  type: ProfileActionsTypes.updateNewPostText,
+  type: ProfileActionsTypes.UPDATE_NEW_POST_TEXT,
   text,
 });
 
-export const setUserProfile = (
+export const setProfile = (
   profile: ProfileType
 ): SetUserProfileActionType => ({
-  type: ProfileActionsTypes.setUserProfile,
+  type: ProfileActionsTypes.SET_PROFILE,
   profile,
+});
+
+export const setStatus = (status: string): setUserStatusActionType => ({
+  type: ProfileActionsTypes.SET_STATUS,
+  status,
 });
 
 //Thunk
 
-export const getUserProfile =
+export const getProfile =
   (userId: number): ThunkActionType =>
   (dispatch) => {
     profileApi.getUserProfile(userId).then((response) => {
-      dispatch(setUserProfile(response.data));
+      dispatch(setProfile(response.data));
     });
+  };
+
+export const getStatus =
+  (userId: number): ThunkActionType =>
+  (dispatch) => {
+    profileApi.getStatus(userId).then((response) => {
+      dispatch(setStatus(response.data));
+    });
+  };
+
+export const updateStatus =
+  (status: string): ThunkActionType =>
+  (dispatch) => {
+    profileApi.updateStatus(status).then(response=>{
+      if(response.data.resultCode===0) dispatch(setStatus(status))
+    })
   };

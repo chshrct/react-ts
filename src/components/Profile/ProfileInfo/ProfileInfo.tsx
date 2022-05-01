@@ -1,13 +1,16 @@
 import { FC } from "react";
+import { ProfileType } from "../../../redux/profile-reducer";
 import Preloader from "../../../shared/Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 type PropsType = {
-  profile: any;
+  profile: ProfileType;
+  status:string
+  updateStatus:(status:string)=>void
 };
 
-export const ProfileInfo:FC<PropsType> = ({ profile }) => {
+export const ProfileInfo:FC<PropsType> = ({ profile,status,updateStatus }) => {
   if (!profile) {
     return <Preloader />;
   } else {
@@ -21,7 +24,7 @@ export const ProfileInfo:FC<PropsType> = ({ profile }) => {
         </div>
         <div className={style.descriptionBlock}>
           <img src={profile.photos.small} alt="ava" />
-          <ProfileStatus status="Ama Hasla Ama Gangsta"/>
+          <ProfileStatus status={status} updateStatus={updateStatus}/>
           <div>{profile.lookingForAJobDescription}</div>
         </div>
       </div>

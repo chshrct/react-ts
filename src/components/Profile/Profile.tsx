@@ -4,12 +4,14 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
 type PropsType = {
   profile: ProfileType;
+  status:string
+  updateStatus:(status:string)=>void
 };
 
-const Profile: React.FC<PropsType> = ({ profile }) => {
+const Profile: React.FC<PropsType> = ({ profile,status,updateStatus }) => {
   return (
     <div>
-      <ProfileInfo profile={profile} />
+      <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
       <MyPostsContainer />
     </div>
   );
