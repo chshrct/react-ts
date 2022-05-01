@@ -19,6 +19,13 @@ export class ProfileStatus extends Component<
     status: this.props.status,
   };
 
+  componentDidUpdate(prevProps:ProfileStatusProps,prevState:ProfileStatusState){
+    if(prevProps.status!==this.props.status){
+      this.setState({status:this.props.status})
+    }
+    
+  }
+
   activateEditMode = () => {
     this.setState({ editMode: true });
   };
