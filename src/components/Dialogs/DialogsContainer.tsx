@@ -14,10 +14,10 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    onClickSendMessage: () => {
+    SendMessage: () => {
       dispatch(sendMessage());
     },
-    onChangeEditMessage: (text: string) => {
+    EditMessage: (text: string) => {
       dispatch(newMessageBody(text));
     },
   };

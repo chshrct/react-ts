@@ -38,7 +38,7 @@ const initialState = {
     { id: 1, message: "hello there" },
     { id: 2, message: "How r u doing?" },
   ],
-  newMessageText: "qwe",
+  newMessageText: "",
 };
 
 export const dialogsReducer = (

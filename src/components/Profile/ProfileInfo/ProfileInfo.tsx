@@ -6,11 +6,17 @@ import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 type PropsType = {
   profile: ProfileType;
-  status:string
-  updateStatus:(status:string)=>void
+  status: string;
+  updateStatus: (status: string) => void;
+  authUserId: number | null;
 };
 
-export const ProfileInfo:FC<PropsType> = ({ profile,status,updateStatus }) => {
+export const ProfileInfo: FC<PropsType> = ({
+  profile,
+  status,
+  updateStatus,
+  authUserId,
+}) => {
   if (!profile) {
     return <Preloader />;
   } else {
@@ -24,7 +30,12 @@ export const ProfileInfo:FC<PropsType> = ({ profile,status,updateStatus }) => {
         </div>
         <div className={style.descriptionBlock}>
           <img src={profile.photos.small} alt="ava" />
-          <ProfileStatus status={status} updateStatus={updateStatus}/>
+          <ProfileStatus
+            status={status}
+            updateStatus={updateStatus}
+            authUserId={authUserId}
+            profileId = {profile.userId}
+          />
           <div>{profile.lookingForAJobDescription}</div>
         </div>
       </div>

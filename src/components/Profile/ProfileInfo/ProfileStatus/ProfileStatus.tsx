@@ -3,6 +3,8 @@ import React, { ChangeEvent, Component } from "react";
 type ProfileStatusProps = {
   status: string;
   updateStatus: (status: string) => void;
+  authUserId: number | null;
+  profileId: number;
 };
 
 type ProfileStatusState = {
@@ -19,15 +21,18 @@ export class ProfileStatus extends Component<
     status: this.props.status,
   };
 
-  componentDidUpdate(prevProps:ProfileStatusProps,prevState:ProfileStatusState){
-    if(prevProps.status!==this.props.status){
-      this.setState({status:this.props.status})
+  componentDidUpdate(
+    prevProps: ProfileStatusProps,
+    prevState: ProfileStatusState
+  ) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({ status: this.props.status });
     }
-    
   }
 
   activateEditMode = () => {
-    this.setState({ editMode: true });
+    this.props.authUserId === this.props.profileId &&
+      this.setState({ editMode: true });
   };
   deactivateEditMode = () => {
     this.setState({ editMode: false });
@@ -53,7 +58,7 @@ export class ProfileStatus extends Component<
         ) : (
           <div>
             <span onDoubleClick={this.activateEditMode}>
-              {this.props.status || 'No Status'}
+              {this.props.status || "No Status"}
             </span>
           </div>
         )}

@@ -4,14 +4,25 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
 type PropsType = {
   profile: ProfileType;
-  status:string
-  updateStatus:(status:string)=>void
+  status: string;
+  updateStatus: (status: string) => void;
+  authUserId: number | null;
 };
 
-const Profile: React.FC<PropsType> = ({ profile,status,updateStatus }) => {
+const Profile: React.FC<PropsType> = ({
+  profile,
+  status,
+  updateStatus,
+  authUserId,
+}) => {
   return (
     <div>
-      <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
+      <ProfileInfo
+        profile={profile}
+        status={status}
+        updateStatus={updateStatus}
+        authUserId={authUserId}
+      />
       <MyPostsContainer />
     </div>
   );

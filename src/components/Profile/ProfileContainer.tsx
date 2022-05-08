@@ -30,7 +30,7 @@ const ProfileContainer: FC<ReduxPropsType> = (props) => {
 
   return (
     <Profile
-      {...props}
+      authUserId={authUserId}
       profile={profile}
       status={status}
       updateStatus={updateStatus}

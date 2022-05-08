@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from "react";
+import AddPostForm from "./AddPostForm/AddPostForm";
 import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
@@ -28,12 +29,7 @@ const MyPosts: React.FC<MyPostsType> = (props) => {
   return (
     <div className={style.postsBlock}>
       <h2>My posts</h2>
-      <div>
-        <textarea value={props.newPostText} onChange={onPostChange} />
-        <div>
-          <button onClick={onAddPost}>add</button>
-        </div>
-      </div>
+      <AddPostForm onAddPost={onAddPost} onPostChange={onPostChange} newPostText={props.newPostText}/>
       <div>
         <h3>new post</h3>
       </div>
