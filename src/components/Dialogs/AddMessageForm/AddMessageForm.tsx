@@ -1,14 +1,19 @@
 import { Field, Form, Formik } from "formik";
 import React, { ChangeEvent, FC } from "react";
+import FormTextArea from "../../../shared/FormTextArea/FormTextArea";
+import { textAreasValidation } from "../../../utils/validation/validators";
 
 type PropsType = {
-  onClickSendMessage: () => void;
+  onClickSendMessage: (values: FormValuesType) => void;
   onChangeEditMessage: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-  newMessage: string;
+};
+
+export type FormValuesType = {
+  message: string;
 };
 
 const AddMessageForm: FC<PropsType> = (props) => {
-  const { newMessage, onChangeEditMessage, onClickSendMessage } = props;
+  const { onClickSendMessage } = props;
   return (
     <div>
       <Formik
@@ -19,12 +24,10 @@ const AddMessageForm: FC<PropsType> = (props) => {
       >
         <Form>
           <Field
-            id="message"
             name="message"
             placeholder="enter ur message"
-            as="textarea"
-            value={newMessage}
-            onChange={onChangeEditMessage}
+            component={FormTextArea}
+            validate={textAreasValidation(30)}
           />
           <button type="submit">+</button>
         </Form>

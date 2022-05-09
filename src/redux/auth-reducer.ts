@@ -70,11 +70,7 @@ export const authUser = ():ThunkActionType => dispatch => {
 export const loginUser = (loginInfo:LoginInfoType):ThunkActionType => dispatch => {
   authApi.login(loginInfo).then(response=>{
     response.data.resultCode === 0 &&
-    dispatch(setUserData(
-      response.data.data.id,
-      response.data.data.email,
-      response.data.data.login
-    ))
+    dispatch(authUser())
   })
 }
 

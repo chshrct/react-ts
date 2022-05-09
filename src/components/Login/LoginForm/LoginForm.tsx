@@ -1,6 +1,9 @@
 import { Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
+import { loginUser } from "../../../redux/auth-reducer";
 import { AppDispatch } from "../../../redux/redux-store";
+import FormInput from "../../../shared/FormInput/FormInput";
+import { textAreasValidation } from "../../../utils/validation/validators";
 
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,20 +21,26 @@ const LoginForm = () => {
         <Form>
           <div>
             <label htmlFor="email">Login</label>
-            <Field id="email" name="email" placeholder="enter email" />
+            <Field
+              name="email"
+              placeholder="enter email"
+              component={FormInput}
+              validate={textAreasValidation(40)}
+            />
           </div>
           <div>
             <label htmlFor="password">Password</label>
             <Field
-              id="password"
               name="password"
               placeholder="enter password"
               type="password"
+              component={FormInput}
+              validate={textAreasValidation(20)}
             />
           </div>{" "}
           <div>
             <label htmlFor="rememberMe">Remember me</label>
-            <Field id="rememberMe" name="rememberMe" type="checkbox" />
+            <Field name="rememberMe" type="checkbox" />
           </div>
           <div>
             <button type="submit">Login</button>
@@ -42,4 +51,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm
+export default LoginForm;

@@ -1,5 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { profileApi } from "../api/api";
+import { ValuesType } from "../components/Profile/MyPosts/AddPostForm/AddPostForm";
 import { AppStateType } from "./redux-store";
 
 type MessageType = {
@@ -10,7 +11,6 @@ type MessageType = {
 
 type ProfileStateType = {
   posts: MessageType[];
-  newPostText: string;
   profile: ProfileType | null;
   status: string;
 };
@@ -24,10 +24,7 @@ enum ProfileActionsTypes {
 
 type AddPostActionType = {
   type: ProfileActionsTypes.ADD_POST;
-};
-type UpdateNewPostActionType = {
-  type: ProfileActionsTypes.UPDATE_NEW_POST_TEXT;
-  text: string;
+  value: ValuesType;
 };
 type SetUserProfileActionType = {
   type: ProfileActionsTypes.SET_PROFILE;
@@ -41,7 +38,6 @@ type setUserStatusActionType = {
 
 type RootActionType =
   | AddPostActionType
-  | UpdateNewPostActionType
   | SetUserProfileActionType
   | setUserStatusActionType;
 
@@ -75,7 +71,6 @@ const initState: ProfileStateType = {
     { id: 1, message: "hello", likeCount: 10 },
     { id: 2, message: "hiho", likeCount: 5 },
   ],
-  newPostText: "LolXd",
   profile: null,
   status: "",
 };
@@ -88,15 +83,10 @@ export const profileReducer = (
     case ProfileActionsTypes.ADD_POST:
       let newMessage = {
         id: 3,
-        message: state.newPostText,
+        message: action.value.postMessage,
         likeCount: 0,
       };
-      state.posts.push(newMessage);
-      state.newPostText = "";
-      return { ...state };
-    case ProfileActionsTypes.UPDATE_NEW_POST_TEXT:
-      state.newPostText = action.text;
-      return { ...state };
+      return { ...state, posts: [...state.posts, newMessage] };
     case ProfileActionsTypes.SET_PROFILE:
       return { ...state, profile: action.profile };
     default:
@@ -108,18 +98,12 @@ export const profileReducer = (
 
 //Action
 
-export const addPost = (): AddPostActionType => ({
+export const addPost = (value: ValuesType): AddPostActionType => ({
   type: ProfileActionsTypes.ADD_POST,
+  value,
 });
 
-export const updateNewPost = (text: string): UpdateNewPostActionType => ({
-  type: ProfileActionsTypes.UPDATE_NEW_POST_TEXT,
-  text,
-});
-
-export const setProfile = (
-  profile: ProfileType
-): SetUserProfileActionType => ({
+export const setProfile = (profile: ProfileType): SetUserProfileActionType => ({
   type: ProfileActionsTypes.SET_PROFILE,
   profile,
 });
@@ -150,7 +134,7 @@ export const getStatus =
 export const updateStatus =
   (status: string): ThunkActionType =>
   (dispatch) => {
-    profileApi.updateStatus(status).then(response=>{
-      if(response.data.resultCode===0) dispatch(setStatus(status))
-    })
+    profileApi.updateStatus(status).then((response) => {
+      if (response.data.resultCode === 0) dispatch(setStatus(status));
+    });
   };

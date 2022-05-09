@@ -1,16 +1,10 @@
 import React, { ChangeEvent } from "react";
-import AddPostForm from "./AddPostForm/AddPostForm";
+import AddPostForm, { ValuesType } from "./AddPostForm/AddPostForm";
 import style from "./MyPosts.module.css";
+import { MyPostsProps } from "./MyPostsContainer";
 import Post from "./Post/Post";
 
-type MyPostsType = {
-  posts: any[];
-  newPostText: string;
-  onPostChange: (text: string) => void;
-  addPost: () => void;
-};
-
-const MyPosts: React.FC<MyPostsType> = (props) => {
+const MyPosts: React.FC<MyPostsProps> = (props) => {
   let postsList = props.posts.map((post) => (
     <Post
       key={post.id}
@@ -19,17 +13,13 @@ const MyPosts: React.FC<MyPostsType> = (props) => {
       likeCount={post.likeCount}
     />
   ));
-  const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    let text = e.currentTarget.value;
-    props.onPostChange(text);
-  };
-  const onAddPost = () => {
-    props.addPost();
+  const onAddPost = (value: ValuesType) => {
+    props.addPost(value);
   };
   return (
     <div className={style.postsBlock}>
       <h2>My posts</h2>
-      <AddPostForm onAddPost={onAddPost} onPostChange={onPostChange} newPostText={props.newPostText}/>
+      <AddPostForm onAddPost={onAddPost} />
       <div>
         <h3>new post</h3>
       </div>

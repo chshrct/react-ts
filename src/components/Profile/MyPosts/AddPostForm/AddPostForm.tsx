@@ -1,19 +1,32 @@
 import { Field, Form, Formik } from "formik";
-import React, { ChangeEvent, FC } from "react";
+import React, { FC } from "react";
+import FormTextArea from "../../../../shared/FormTextArea/FormTextArea";
+import { textAreasValidation } from "../../../../utils/validation/validators";
 
 type PropsType = {
-  newPostText: string;
-  onPostChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-  onAddPost: () => void;
+  onAddPost: (values: ValuesType) => void;
+};
+
+export type ValuesType = {
+  postMessage: string;
 };
 
 const AddPostForm: FC<PropsType> = (props) => {
-  const { newPostText, onPostChange, onAddPost } = props;
+  const { onAddPost } = props;
   return (
     <>
-      <Formik initialValues={{}} onSubmit={onAddPost}>
+      <Formik
+        initialValues={{
+          postMessage: "",
+        }}
+        onSubmit={onAddPost}
+      >
         <Form>
-          <Field as={"textarea"} onChange={onPostChange} value={newPostText} />
+          <Field
+            name="postMessage"
+            component={FormTextArea}
+            validate={textAreasValidation(15)}
+          />
           <div>
             <button type="submit">add post</button>
           </div>

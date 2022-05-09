@@ -4,6 +4,7 @@ import { compose, Dispatch } from "redux";
 import { withAuthRedirect } from "../../hoc/AuthRedirect/withAuthRedirect";
 import { newMessageBody, sendMessage } from "../../redux/dialogs-reducer";
 import { AppStateType } from "../../redux/redux-store";
+import { FormValuesType } from "./AddMessageForm/AddMessageForm";
 import { Dialogs } from "./Dialogs";
 
 const mapStateToProps = (state: AppStateType) => {
@@ -14,8 +15,8 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    SendMessage: () => {
-      dispatch(sendMessage());
+    SendMessage: (values:FormValuesType) => {
+      dispatch(sendMessage(values));
     },
     EditMessage: (text: string) => {
       dispatch(newMessageBody(text));
