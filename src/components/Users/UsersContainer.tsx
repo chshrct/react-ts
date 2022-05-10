@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { AppStateType } from "../../redux/redux-store";
+import { AppState } from "../../redux/redux-store";
 import {
   followUser,
   getUsers,
@@ -39,7 +39,7 @@ class UsersAPIComponent extends Component<PropsFromRedux> {
   }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppState) => {
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,

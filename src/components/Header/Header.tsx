@@ -1,14 +1,11 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./Header.module.css";
+import { ReduxPropsHeader } from "./HeaderContainer";
 
-type PropsType = {
-  login: string | null;
-  email: string | null;
-  isAuth:boolean
-};
 
-const Header: FC<PropsType> = (props) => {
+
+const Header: FC<ReduxPropsHeader> = (props) => {
   return (
     <header className={classes.header}>
       <img
@@ -16,9 +13,12 @@ const Header: FC<PropsType> = (props) => {
         alt="apple"
       />
       {props.isAuth ? (
-        props.login
+        <div>
+          <div>{props.login}</div>
+          <button onClick={props.logout}>Logout</button>
+        </div> 
       ) : (
-        <div>{<NavLink to={"#s"}>Login</NavLink>}</div>
+        <div>{<NavLink to={'/login'}>Login</NavLink>}</div>
       )}
     </header>
   );

@@ -8,7 +8,7 @@ import {
   getStatus,
   updateStatus,
 } from "../../redux/profile-reducer";
-import { AppStateType } from "../../redux/redux-store";
+import { AppState } from "../../redux/redux-store";
 import Profile from "./Profile";
 
 const ProfileContainer: FC<ReduxPropsType> = (props) => {
@@ -38,7 +38,7 @@ const ProfileContainer: FC<ReduxPropsType> = (props) => {
   );
 };
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppState) => {
   return {
     authUserId: state.auth.userId,
     profile: state.profilePage.profile,

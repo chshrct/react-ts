@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../redux/auth-reducer";
+import { login } from "../../../redux/auth-reducer";
 import { AppDispatch } from "../../../redux/redux-store";
 import FormInput from "../../../shared/FormInput/FormInput";
 import { textAreasValidation } from "../../../utils/validation/validators";
@@ -16,7 +16,7 @@ const LoginForm = () => {
           rememberMe: false,
         }}
         //@ts-ignore
-        onSubmit={(values) => dispatch(loginUser(values))}
+        onSubmit={(values) => dispatch(login(values))}
       >
         <Form>
           <div>

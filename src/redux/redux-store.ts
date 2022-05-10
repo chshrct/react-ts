@@ -1,9 +1,9 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import thunk from "redux-thunk";
-import authReducer from "./auth-reducer";
-import { dialogsReducer } from "./dialogs-reducer";
-import { profileReducer } from "./profile-reducer";
-import usersReducer from "./users-reducer";
+import thunk, { ThunkAction } from "redux-thunk";
+import authReducer, { RootAuthAction } from "./auth-reducer";
+import { dialogsReducer, RootDialogsAction } from "./dialogs-reducer";
+import { profileReducer, RootProfileAction } from "./profile-reducer";
+import usersReducer, { RootUsersAction } from "./users-reducer";
 
 let rootReducer = combineReducers({
   profilePage: profileReducer,
@@ -18,6 +18,13 @@ const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
-export type AppStateType = ReturnType<typeof rootReducer>;
+export type AppState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
+export type RootAction =
+  | RootUsersAction
+  | RootProfileAction
+  | RootDialogsAction
+  | RootAuthAction;
+export type ThunkApp = ThunkAction<void, AppState, unknown, RootAction>;
+
 export default store;

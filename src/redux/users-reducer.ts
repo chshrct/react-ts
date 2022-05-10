@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { ThunkAction } from "redux-thunk";
 import { usersApi } from "../api/api";
-import { AppStateType } from "./redux-store";
+import { AppState } from "./redux-store";
 
 export type UserType = {
   name: string;
@@ -64,7 +64,7 @@ type setFollowInProgressActionType = {
   inProgress: boolean;
 };
 
-export type RootActionType =
+export type RootUsersAction =
   | setUsersActionType
   | followActionType
   | unfollowActionType
@@ -73,7 +73,7 @@ export type RootActionType =
   | setFetchPreloaderActionType
   | setFollowInProgressActionType;
 
-type ThunkActionType = ThunkAction<void, AppStateType, unknown, RootActionType>;
+type ThunkActionType = ThunkAction<void, AppState, unknown, RootUsersAction>;
 
 const initState: UsersStateType = {
   users: [],
@@ -86,7 +86,7 @@ const initState: UsersStateType = {
 
 const usersReducer = (
   state: UsersStateType = initState,
-  action: RootActionType
+  action: RootUsersAction
 ): UsersStateType => {
   switch (action.type) {
     case UsersActionsTypes.follow:

@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { profileApi } from "../api/api";
 import { ValuesType } from "../components/Profile/MyPosts/AddPostForm/AddPostForm";
-import { AppStateType } from "./redux-store";
+import { AppState, ThunkApp } from "./redux-store";
 
 type MessageType = {
   id: number;
@@ -36,12 +36,11 @@ type setUserStatusActionType = {
   status: string;
 };
 
-type RootActionType =
+export type RootProfileAction =
   | AddPostActionType
   | SetUserProfileActionType
   | setUserStatusActionType;
 
-type ThunkActionType = ThunkAction<void, AppStateType, unknown, RootActionType>;
 type contacts = {
   github: string;
   vk: string;
@@ -77,7 +76,7 @@ const initState: ProfileStateType = {
 
 export const profileReducer = (
   state: ProfileStateType = initState,
-  action: RootActionType
+  action: RootProfileAction
 ) => {
   switch (action.type) {
     case ProfileActionsTypes.ADD_POST:
@@ -116,7 +115,7 @@ export const setStatus = (status: string): setUserStatusActionType => ({
 //Thunk
 
 export const getProfile =
-  (userId: number): ThunkActionType =>
+  (userId: number): ThunkApp =>
   (dispatch) => {
     profileApi.getUserProfile(userId).then((response) => {
       dispatch(setProfile(response.data));
@@ -124,7 +123,7 @@ export const getProfile =
   };
 
 export const getStatus =
-  (userId: number): ThunkActionType =>
+  (userId: number): ThunkApp =>
   (dispatch) => {
     profileApi.getStatus(userId).then((response) => {
       dispatch(setStatus(response.data));
@@ -132,7 +131,7 @@ export const getStatus =
   };
 
 export const updateStatus =
-  (status: string): ThunkActionType =>
+  (status: string): ThunkApp =>
   (dispatch) => {
     profileApi.updateStatus(status).then((response) => {
       if (response.data.resultCode === 0) dispatch(setStatus(status));

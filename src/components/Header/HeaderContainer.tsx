@@ -1,34 +1,32 @@
 import { Component } from "react";
 import { ConnectedProps } from "react-redux";
 import { connect } from "react-redux";
-import { authUser } from "../../redux/auth-reducer";
-import { AppStateType } from "../../redux/redux-store";
+import { auth, logout } from "../../redux/auth-reducer";
+import { AppState } from "../../redux/redux-store";
 import Header from "./Header";
 
-export class HeaderContainer extends Component<ReduxPropsType> {
+export class HeaderContainer extends Component<ReduxPropsHeader> {
   componentDidMount() {
-    this.props.AuthUser();
+    this.props.auth();
   }
 
   render() {
     return (
       <Header
-        login={this.props.login}
-        email={this.props.email}
-        isAuth={this.props.isAuth}
+        {...this.props}
       />
     );
   }
 }
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppState) => ({
   login: state.auth.login,
   email: state.auth.email,
   isAuth: state.auth.isAuth,
 });
-const mapDispatchToProps = { AuthUser: authUser };
+const mapDispatchToProps = { auth,logout };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type ReduxPropsType = ConnectedProps<typeof connector>;
+export type ReduxPropsHeader = ConnectedProps<typeof connector>;
 
 export default connector(HeaderContainer);

@@ -26,7 +26,7 @@ export const usersApi = {
     return socialInstance.delete(`follow/${userId}`);
   },
   Follow(userId: number) {
-    return socialInstance.post(`/follow/${userId}`, null);
+    return socialInstance.post(`follow/${userId}`, null);
   },
 };
 
@@ -38,7 +38,7 @@ export const profileApi = {
     return socialInstance.get(`profile/status/${userId}`)
   },
   updateStatus(status:string){
-    return socialInstance.put('/profile/status',{status})
+    return socialInstance.put('profile/status',{status})
   }
 };
 export const authApi = {
@@ -46,6 +46,9 @@ export const authApi = {
     return socialInstance.get('auth/me');
   },
   login(loginInfo:LoginInfoType){
-    return socialInstance.post('/auth/login',loginInfo)
+    return socialInstance.post('auth/login',loginInfo)
+  },
+  logout(){
+    return socialInstance.delete('auth/login')
   }
 };

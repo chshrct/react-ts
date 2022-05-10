@@ -14,7 +14,7 @@ type newMessageBodyAction = {
   body: string;
 };
 
-type RootAction = newMessageBodyAction | sendMessageAction;
+export type RootDialogsAction = newMessageBodyAction | sendMessageAction;
 
 type User = {
   id: number;
@@ -44,7 +44,7 @@ const initialState = {
 
 export const dialogsReducer = (
   state: DialogsStateType = initialState,
-  action: RootAction
+  action: RootDialogsAction
 ) => {
   switch (action.type) {
     case DialogActionsTypes.UPDATE_NEW_MESSAGE_BODY:
