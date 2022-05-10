@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { ThunkAction } from "redux-thunk";
 import { usersApi } from "../api/api";
-import { AppState } from "./redux-store";
+import { AppRootStateType } from "./redux-store";
 
 export type UserType = {
   name: string;
@@ -73,7 +73,7 @@ export type RootUsersAction =
   | setFetchPreloaderActionType
   | setFollowInProgressActionType;
 
-type ThunkActionType = ThunkAction<void, AppState, unknown, RootUsersAction>;
+type ThunkActionType = ThunkAction<void, AppRootStateType, unknown, RootUsersAction>;
 
 const initState: UsersStateType = {
   users: [],

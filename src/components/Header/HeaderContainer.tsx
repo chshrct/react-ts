@@ -2,7 +2,7 @@ import { Component } from "react";
 import { ConnectedProps } from "react-redux";
 import { connect } from "react-redux";
 import { auth, logout } from "../../redux/auth-reducer";
-import { AppState } from "../../redux/redux-store";
+import { AppRootStateType } from "../../redux/redux-store";
 import Header from "./Header";
 
 export class HeaderContainer extends Component<ReduxPropsHeader> {
@@ -19,7 +19,7 @@ export class HeaderContainer extends Component<ReduxPropsHeader> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppRootStateType) => ({
   login: state.auth.login,
   email: state.auth.email,
   isAuth: state.auth.isAuth,

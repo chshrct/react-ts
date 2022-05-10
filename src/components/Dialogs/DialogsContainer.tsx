@@ -3,11 +3,11 @@ import { connect, ConnectedProps } from "react-redux";
 import { compose, Dispatch } from "redux";
 import { withAuthRedirect } from "../../hoc/AuthRedirect/withAuthRedirect";
 import { newMessageBody, sendMessage } from "../../redux/dialogs-reducer";
-import { AppState } from "../../redux/redux-store";
+import { AppRootStateType } from "../../redux/redux-store";
 import { FormValuesType } from "./AddMessageForm/AddMessageForm";
 import { Dialogs } from "./Dialogs";
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppRootStateType) => {
   return {
     dialogsPage: state.dialogsPage,
   };

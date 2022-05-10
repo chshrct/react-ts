@@ -1,11 +1,11 @@
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
 import { addPost } from "../../../redux/profile-reducer";
-import { AppState } from "../../../redux/redux-store";
+import { AppRootStateType } from "../../../redux/redux-store";
 import { ValuesType } from "./AddPostForm/AddPostForm";
 import MyPosts from "./MyPosts";
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: AppRootStateType) => {
   return {
     posts: state.profilePage.posts,
   };

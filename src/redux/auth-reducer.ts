@@ -1,3 +1,4 @@
+import { FormikHelpers } from "formik";
 import { Reducer } from "redux";
 import { authApi, LoginInfoType } from "../api/api";
 import { ThunkApp } from "./redux-store";
@@ -70,10 +71,19 @@ export const auth = (): ThunkApp => (dispatch) => {
   });
 };
 export const login =
-  (loginInfo: LoginInfoType): ThunkApp =>
+  (
+    loginInfo: LoginInfoType,
+    actions: FormikHelpers<{
+      email: string;
+      password: string;
+      rememberMe: boolean;
+    }>
+  ): ThunkApp =>
   (dispatch) => {
+    actions.setSubmitting(true);
     authApi.login(loginInfo).then((response) => {
       response.data.resultCode === 0 && dispatch(auth());
+      actions.setSubmitting(false);
     });
   };
 
