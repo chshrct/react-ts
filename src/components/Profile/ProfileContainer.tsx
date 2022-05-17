@@ -1,5 +1,6 @@
 import { ComponentType, FC, useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/AuthRedirect/withAuthRedirect";
@@ -21,12 +22,17 @@ const ProfileContainer: FC<ReduxPropsType> = (props) => {
     updateStatus,
   } = props;
   const param = useParams();
+  let navigate = useNavigate();
 
   useEffect(() => {
     const userId = param["*"] ? +param["*"] : authUserId;
-    getUserProfile(userId!);
-    getStatus(userId!);
-  }, [authUserId, getStatus, getUserProfile, param]);
+    if (userId) {
+      getUserProfile(userId);
+      getStatus(userId);
+    }else{
+      navigate('/login')
+    }
+  }, [authUserId, getStatus, getUserProfile, param,navigate]);
 
   return (
     <Profile
@@ -56,5 +62,4 @@ type ReduxPropsType = ConnectedProps<typeof connector>;
 
 export default compose<ComponentType>(
   connector,
-  withAuthRedirect
 )(ProfileContainer);

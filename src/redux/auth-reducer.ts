@@ -58,8 +58,8 @@ export const setUserData = (
 
 //Thunk
 
-export const auth = (): ThunkApp => (dispatch) => {
-  authApi.me().then((response) => {
+export const getAuthUserData = (): ThunkApp => (dispatch) => {
+ return authApi.me().then((response) => {
     response.data.resultCode === 0 &&
       dispatch(
         setUserData(
@@ -82,7 +82,7 @@ export const login =
   (dispatch) => {
     actions.setSubmitting(true);
     authApi.login(loginInfo).then((response) => {
-      response.data.resultCode === 0 && dispatch(auth());
+      response.data.resultCode === 0 && dispatch(getAuthUserData());
       actions.setSubmitting(false);
     });
   };
