@@ -7,6 +7,7 @@ import {
   setFollowInProgress,
   unFollowUser,
 } from "../../redux/users-reducer";
+import { selectCurrentPage, selectIsFetching, selectIsFollowInProgress, selectPageSize, selectTotalUsersCount, selectUsers } from "../../redux/users-selectors";
 import Preloader from "../../shared/Preloader/Preloader";
 import Users from "./Users";
 
@@ -41,12 +42,12 @@ class UsersAPIComponent extends Component<PropsFromRedux> {
 
 const mapStateToProps = (state: AppRootStateType) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    isFollowInProgress: state.usersPage.isFollowInProgress,
+    users: selectUsers(state),
+    pageSize: selectPageSize(state),
+    totalUsersCount: selectTotalUsersCount(state),
+    currentPage: selectCurrentPage(state),
+    isFetching: selectIsFetching(state),
+    isFollowInProgress: selectIsFollowInProgress(state),
   };
 };
 
