@@ -2,7 +2,7 @@ import { FC } from "react";
 import { ProfileType } from "../../../redux/profile-reducer";
 import Preloader from "../../../shared/Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusFunctional from "./ProfileStatus/ProfileStatusFunctional";
 
 type PropsType = {
   profile: ProfileType;
@@ -30,7 +30,7 @@ export const ProfileInfo: FC<PropsType> = ({
         </div>
         <div className={style.descriptionBlock}>
           <img src={profile.photos.small} alt="ava" />
-          <ProfileStatus
+          <ProfileStatusFunctional
             status={status}
             updateStatus={updateStatus}
             authUserId={authUserId}
