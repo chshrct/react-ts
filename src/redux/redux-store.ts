@@ -22,7 +22,6 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 export type AppRootStateType = ReturnType<typeof rootReducer>;
-export type AppDispatch = typeof store.dispatch;
 export type AppRootActionType =
   | RootUsersAction
   | RootProfileAction
@@ -37,7 +36,7 @@ export type ThunkApp = ThunkAction<
 >;
 export type TypedDispatch = ThunkDispatch<
   AppRootStateType,
-  any,
+  unknown,
   AppRootActionType
 >;
 

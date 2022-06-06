@@ -18,7 +18,7 @@ const LoginForm = () => {
           dispatch(login(values, actions));
         }}
       >
-        {({isSubmitting}) => (
+        {({ isSubmitting }) => (
           <Form>
             <div>
               <label htmlFor="email">Login</label>
@@ -44,7 +44,9 @@ const LoginForm = () => {
               <Field name="rememberMe" type="checkbox" />
             </div>
             <div>
-              <button type="submit" disabled={isSubmitting}>Login</button>
+              <button type="submit" disabled={isSubmitting}>
+                Login
+              </button>
             </div>
           </Form>
         )}

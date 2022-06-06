@@ -1,7 +1,5 @@
-import { Dispatch } from "react";
-import { ThunkAction } from "redux-thunk";
 import { usersApi } from "../api/api";
-import { AppRootStateType } from "./redux-store";
+import { ThunkApp } from "./redux-store";
 
 export type UserType = {
   name: string;
@@ -72,8 +70,6 @@ export type RootUsersAction =
   | setTotalUsersCountActionType
   | setFetchPreloaderActionType
   | setFollowInProgressActionType;
-
-type ThunkActionType = ThunkAction<void, AppRootStateType, unknown, RootUsersAction>;
 
 const initState: UsersStateType = {
   users: [],
@@ -197,7 +193,7 @@ export const setFollowInProgress = (
 //THUNK
 
 export const getUsers =
-  (currentPage: number, pageSize: number): ThunkActionType =>
+  (currentPage: number, pageSize: number): ThunkApp =>
   (dispatch) => {
     dispatch(setFetchPreloader(true));
     dispatch(setCurrentPage(currentPage));
@@ -209,7 +205,7 @@ export const getUsers =
   };
 
 export const followUser =
-  (userId: number): ThunkActionType =>
+  (userId: number): ThunkApp =>
   (dispatch) => {
     dispatch(setFollowInProgress(userId, true));
     usersApi.Follow(userId).then((response) => {
@@ -219,7 +215,7 @@ export const followUser =
   };
 
 export const unFollowUser =
-  (userId: number): ThunkActionType =>
+  (userId: number): ThunkApp =>
   (dispatch) => {
     dispatch(setFollowInProgress(userId, true));
     usersApi.unFollow(userId).then((response) => {

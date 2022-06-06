@@ -1,7 +1,6 @@
-import { ThunkAction } from "redux-thunk";
 import { profileApi } from "../api/api";
 import { ValuesType } from "../components/Profile/MyPosts/AddPostForm/AddPostForm";
-import { AppRootStateType, ThunkApp } from "./redux-store";
+import { ThunkApp } from "./redux-store";
 
 type MessageType = {
   id: number;
@@ -9,7 +8,7 @@ type MessageType = {
   likeCount: number;
 };
 
-type ProfileStateType = {
+export type ProfileStateType = {
   posts: MessageType[];
   profile: ProfileType | null;
   status: string;

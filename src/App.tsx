@@ -2,7 +2,7 @@ import React from "react";
 import { ReactNode } from "react";
 import { ConnectedProps } from "react-redux";
 import { connect } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -19,7 +19,7 @@ class App extends React.Component<AppReduxPropsType> {
     this.props.initializeApp();
   }
   render(): ReactNode {
-    if(!this.props.initialized) return <Preloader/>
+    if (!this.props.initialized) return <Preloader />;
     return (
       <BrowserRouter>
         <div className="app-wrapper">
@@ -31,6 +31,7 @@ class App extends React.Component<AppReduxPropsType> {
           </div>
           <div className={"app-wrapper-content"}>
             <Routes>
+              <Route path={"/"} element={<Navigate to={"/profile"} />} />
               <Route path={"/profile/*"} element={<ProfileContainer />} />
               <Route path={"/dialogs/*"} element={<DialogsContainer />} />
               <Route path={"/users/*"} element={<UsersContainer />} />
@@ -43,11 +44,11 @@ class App extends React.Component<AppReduxPropsType> {
   }
 }
 
-const mapStateToProps = (state:AppRootStateType)=>({
-  initialized:state.app.initialized
-})
+const mapStateToProps = (state: AppRootStateType) => ({
+  initialized: state.app.initialized,
+});
 
-const connector = connect(mapStateToProps,{initializeApp})
-type AppReduxPropsType = ConnectedProps<typeof connector>
+const connector = connect(mapStateToProps, { initializeApp });
+type AppReduxPropsType = ConnectedProps<typeof connector>;
 
 export default connector(App);

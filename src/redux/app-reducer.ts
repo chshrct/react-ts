@@ -29,10 +29,10 @@ export const setSuccessfulInitialization = () =>
 //thunks
 
 export const initializeApp = (): ThunkApp => (dispatch) => {
-   //@ts-ignore
-  dispatch(getAuthUserData()).then(()=>{
-    dispatch(setSuccessfulInitialization())
-  })
+  //@ts-ignore
+  dispatch(getAuthUserData()).then(() => {
+    dispatch(setSuccessfulInitialization());
+  });
 };
 
 export default appReducer;
