@@ -1,6 +1,9 @@
-import { ProfileType } from "../../redux/profile-reducer";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
+import { FC } from 'react';
+
+import { ProfileType } from '../../redux/profile-reducer';
+
+import MyPostsContainer from './MyPosts/MyPostsContainer';
+import { ProfileInfo } from './ProfileInfo/ProfileInfo';
 
 type PropsType = {
   profile: ProfileType;
@@ -9,12 +12,7 @@ type PropsType = {
   authUserId: number | null;
 };
 
-const Profile: React.FC<PropsType> = ({
-  profile,
-  status,
-  updateStatus,
-  authUserId,
-}) => {
+const Profile: FC<PropsType> = ({ profile, status, updateStatus, authUserId }) => {
   return (
     <div>
       <ProfileInfo

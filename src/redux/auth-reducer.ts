@@ -1,10 +1,14 @@
-import { FormikHelpers } from "formik";
-import { Reducer } from "redux";
-import { authApi, LoginInfoType } from "../api/api";
-import { ThunkApp } from "./redux-store";
+import { FormikHelpers } from 'formik';
+import { Reducer } from 'redux';
+
+import { authApi, LoginInfoType } from '../api/api';
+
+import { ThunkApp } from './redux-store';
+
+import { ZERO } from 'constant';
 
 enum ActionTypes {
-  SET_USER_DATA = "SET_USER_DATA",
+  SET_USER_DATA = 'SET_USER_DATA',
 }
 
 type SetUserDataAction = {
@@ -33,7 +37,7 @@ const initialState: StateType = {
 
 const authReducer: Reducer<StateType, RootAuthAction> = (
   state = initialState,
-  action
+  action,
 ) => {
   switch (action.type) {
     case ActionTypes.SET_USER_DATA:
@@ -46,7 +50,7 @@ const authReducer: Reducer<StateType, RootAuthAction> = (
 export const setUserData = (
   userId: number | null,
   email: string | null,
-  login: string | null
+  login: string | null,
 ): SetUserDataAction => ({
   type: ActionTypes.SET_USER_DATA,
   data: {
@@ -56,17 +60,17 @@ export const setUserData = (
   },
 });
 
-//Thunk
+// thunk
 
-export const getAuthUserData = (): ThunkApp => (dispatch) => {
- return authApi.me().then((response) => {
-    response.data.resultCode === 0 &&
+export const getAuthUserData = (): ThunkApp => dispatch => {
+  return authApi.me().then(response => {
+    if (response.data.resultCode === ZERO)
       dispatch(
         setUserData(
           response.data.data.id,
           response.data.data.email,
-          response.data.data.login
-        )
+          response.data.data.login,
+        ),
       );
   });
 };
@@ -77,19 +81,19 @@ export const login =
       email: string;
       password: string;
       rememberMe: boolean;
-    }>
+    }>,
   ): ThunkApp =>
-  (dispatch) => {
+  dispatch => {
     actions.setSubmitting(true);
-    authApi.login(loginInfo).then((response) => {
-      response.data.resultCode === 0 && dispatch(getAuthUserData());
+    authApi.login(loginInfo).then(response => {
+      if (response.data.resultCode === ZERO) dispatch(getAuthUserData());
       actions.setSubmitting(false);
     });
   };
 
-export const logout = (): ThunkApp => (dispatch) => {
-  authApi.logout().then((response) => {
-    response.data.resultCode === 0 && dispatch(setUserData(null, null, null));
+export const logout = (): ThunkApp => dispatch => {
+  authApi.logout().then(response => {
+    if (response.data.resultCode === ZERO) dispatch(setUserData(null, null, null));
   });
 };
 

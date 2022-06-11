@@ -1,5 +1,6 @@
-import { usersApi } from "../api/api";
-import { ThunkApp } from "./redux-store";
+import { usersApi } from '../api/api';
+
+import { ThunkApp } from './redux-store';
 
 export type UserType = {
   name: string;
@@ -23,13 +24,13 @@ export type UsersStateType = {
 };
 
 enum UsersActionsTypes {
-  setUsers = "SET_USERS",
-  follow = "FOLLOW",
-  unfollow = "UNFOLLOW",
-  setCurrentPage = "SET_CURRENT_PAGE",
-  setTotalUsersCount = "SET_TOTAL_USERS_COUNT",
-  setFetchPreloader = "SET_FETCH_PRELOADER",
-  setFollowInProgress = "SET_FOLLOW_IN_PROGRESS",
+  setUsers = 'SET_USERS',
+  follow = 'FOLLOW',
+  unfollow = 'UNFOLLOW',
+  setCurrentPage = 'SET_CURRENT_PAGE',
+  setTotalUsersCount = 'SET_TOTAL_USERS_COUNT',
+  setFetchPreloader = 'SET_FETCH_PRELOADER',
+  setFollowInProgress = 'SET_FOLLOW_IN_PROGRESS',
 }
 type followActionType = {
   type: UsersActionsTypes.follow;
@@ -82,21 +83,21 @@ const initState: UsersStateType = {
 
 const usersReducer = (
   state: UsersStateType = initState,
-  action: RootUsersAction
+  action: RootUsersAction,
 ): UsersStateType => {
   switch (action.type) {
     case UsersActionsTypes.follow:
       return {
         ...state,
-        users: state.users.map((u) =>
-          u.id === action.userId ? { ...u, followed: true } : { ...u }
+        users: state.users.map(u =>
+          u.id === action.userId ? { ...u, followed: true } : { ...u },
         ),
       };
     case UsersActionsTypes.unfollow:
       return {
         ...state,
-        users: state.users.map((u) =>
-          u.id === action.userId ? { ...u, followed: false } : { ...u }
+        users: state.users.map(u =>
+          u.id === action.userId ? { ...u, followed: false } : { ...u },
         ),
       };
     case UsersActionsTypes.setUsers:
@@ -128,7 +129,7 @@ const usersReducer = (
         : {
             ...state,
             isFollowInProgress: state.isFollowInProgress.filter(
-              (el) => el !== action.userId
+              el => el !== action.userId,
             ),
           };
 
@@ -137,44 +138,40 @@ const usersReducer = (
   }
 };
 
-//ACTION
+// action
 export const setUsers = (users: Array<UserType>): setUsersActionType => {
   return {
     type: UsersActionsTypes.setUsers,
-    users: users,
+    users,
   };
 };
 export const follow = (userId: number): followActionType => {
   return {
     type: UsersActionsTypes.follow,
-    userId: userId,
+    userId,
   };
 };
 export const unfollow = (userId: number): unfollowActionType => {
   return {
     type: UsersActionsTypes.unfollow,
-    userId: userId,
+    userId,
   };
 };
-export const setCurrentPage = (
-  currentPage: number
-): setCurrentPageActionType => {
+export const setCurrentPage = (currentPage: number): setCurrentPageActionType => {
   return {
     type: UsersActionsTypes.setCurrentPage,
     currentPage,
   };
 };
 export const setTotalUsersCount = (
-  totalUsersCount: number
+  totalUsersCount: number,
 ): setTotalUsersCountActionType => {
   return {
     type: UsersActionsTypes.setTotalUsersCount,
     totalUsersCount,
   };
 };
-export const setFetchPreloader = (
-  isFetching: boolean
-): setFetchPreloaderActionType => {
+export const setFetchPreloader = (isFetching: boolean): setFetchPreloaderActionType => {
   return {
     type: UsersActionsTypes.setFetchPreloader,
     isFetching,
@@ -183,21 +180,21 @@ export const setFetchPreloader = (
 
 export const setFollowInProgress = (
   userId: number,
-  inProgress: boolean
+  inProgress: boolean,
 ): setFollowInProgressActionType => ({
   type: UsersActionsTypes.setFollowInProgress,
   userId,
   inProgress,
 });
 
-//THUNK
+// thunk
 
 export const getUsers =
   (currentPage: number, pageSize: number): ThunkApp =>
-  (dispatch) => {
+  dispatch => {
     dispatch(setFetchPreloader(true));
     dispatch(setCurrentPage(currentPage));
-    usersApi.getUsers(currentPage, pageSize).then((data) => {
+    usersApi.getUsers(currentPage, pageSize).then(data => {
       dispatch(setFetchPreloader(false));
       dispatch(setUsers(data.items));
       dispatch(setTotalUsersCount(data.totalCount));
@@ -206,9 +203,9 @@ export const getUsers =
 
 export const followUser =
   (userId: number): ThunkApp =>
-  (dispatch) => {
+  dispatch => {
     dispatch(setFollowInProgress(userId, true));
-    usersApi.Follow(userId).then((response) => {
+    usersApi.Follow(userId).then(() => {
       dispatch(follow(userId));
       dispatch(setFollowInProgress(userId, false));
     });
@@ -216,9 +213,9 @@ export const followUser =
 
 export const unFollowUser =
   (userId: number): ThunkApp =>
-  (dispatch) => {
+  dispatch => {
     dispatch(setFollowInProgress(userId, true));
-    usersApi.unFollow(userId).then((response) => {
+    usersApi.unFollow(userId).then(() => {
       dispatch(unfollow(userId));
       dispatch(setFollowInProgress(userId, false));
     });

@@ -1,13 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { AppRootStateType } from "../../redux/redux-store";
-import LoginForm from "./LoginForm/LoginForm";
+import React, { FC } from 'react';
 
-const Login = () => {
-  const isAuth = useSelector<AppRootStateType>((state) => state.auth.isAuth);
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-  if (isAuth) return <Navigate to={"/profile"} />;
+import { AppRootStateType } from '../../redux/redux-store';
+
+import LoginForm from './LoginForm/LoginForm';
+
+const Login: FC = () => {
+  const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth);
+
+  if (isAuth) return <Navigate to="/profile" />;
 
   return (
     <div>

@@ -1,65 +1,52 @@
-import { ComponentType, FC, useEffect } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { compose } from "redux";
-import { withAuthRedirect } from "../../hoc/AuthRedirect/withAuthRedirect";
-import {
-  getProfile,
-  getStatus,
-  updateStatus,
-} from "../../redux/profile-reducer";
-import { AppRootStateType } from "../../redux/redux-store";
-import Profile from "./Profile";
+/* eslint-disable @typescript-eslint/no-shadow */
+import { ComponentType, FC, useEffect } from 'react';
 
-const ProfileContainer: FC<ReduxPropsType> = (props) => {
-  const {
-    getProfile: getUserProfile,
-    getStatus,
-    authUserId,
-    profile,
-    status,
-    updateStatus,
-  } = props;
+import { connect, ConnectedProps } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { compose } from 'redux';
+
+import { getProfile, getStatus, updateStatus } from '../../redux/profile-reducer';
+import { AppRootStateType } from '../../redux/redux-store';
+
+import Profile from './Profile';
+
+const ProfileContainer: FC<ReduxPropsType> = props => {
+  const { getProfile, getStatus, authUserId, profile, status, updateStatus } = props;
   const param = useParams();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const userId = param["*"] ? +param["*"] : authUserId;
+    const userId = param['*'] ? +param['*'] : authUserId;
     if (userId) {
-      getUserProfile(userId);
+      getProfile(userId);
       getStatus(userId);
-    }else{
-      navigate('/login')
+    } else {
+      navigate('/login');
     }
-  }, [authUserId, getStatus, getUserProfile, param,navigate]);
+  }, [authUserId, getStatus, getProfile, param, navigate]);
 
   return (
     <Profile
       authUserId={authUserId}
-      profile={profile}
+      profile={profile!}
       status={status}
       updateStatus={updateStatus}
     />
   );
 };
 
-const mapStateToProps = (state: AppRootStateType) => {
-  return {
+const mapStateToProps = (state: AppRootStateType) =>
+  ({
     authUserId: state.auth.userId,
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-  };
-};
-const mapDispatchToProps = {
+  } as const);
+
+const connector = connect(mapStateToProps, {
   getProfile,
   getStatus,
   updateStatus,
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+});
 type ReduxPropsType = ConnectedProps<typeof connector>;
 
-export default compose<ComponentType>(
-  connector,
-)(ProfileContainer);
+export default compose<ComponentType>(connector)(ProfileContainer);

@@ -1,8 +1,8 @@
-import { FormValuesType } from "../components/Dialogs/AddMessageForm/AddMessageForm";
+import { FormValuesType } from '../components/Dialogs/AddMessageForm/AddMessageForm';
 
 enum DialogActionsTypes {
-  UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY",
-  SEND_MESSAGE = "SEND-MESSAGE",
+  UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY',
+  SEND_MESSAGE = 'SEND-MESSAGE',
 }
 
 type sendMessageAction = {
@@ -28,34 +28,33 @@ type Message = {
 export type DialogsStateType = {
   users: User[];
   messages: Message[];
+  newMessageText: string;
 };
 
 const initialState = {
   users: [
-    { id: 1, name: "Алеша" },
-    { id: 2, name: "Володя" },
-    { id: 3, name: "Анюта" },
+    { id: 1, name: 'Алеша' },
+    { id: 2, name: 'Володя' },
+    { id: 3, name: 'Анюта' },
   ],
   messages: [
-    { id: 1, message: "hello there" },
-    { id: 2, message: "How r u doing?" },
+    { id: 1, message: 'hello there' },
+    { id: 2, message: 'How r u doing?' },
   ],
+  newMessageText: '',
 };
 
 export const dialogsReducer = (
   state: DialogsStateType = initialState,
-  action: RootDialogsAction
-) => {
+  action: RootDialogsAction,
+): DialogsStateType => {
   switch (action.type) {
     case DialogActionsTypes.UPDATE_NEW_MESSAGE_BODY:
       return { ...state, newMessageText: action.body };
     case DialogActionsTypes.SEND_MESSAGE:
       return {
         ...state,
-        messages: [
-          ...state.messages,
-          { id: 5, message: action.values.message },
-        ],
+        messages: [...state.messages, { id: 5, message: action.values.message }],
       };
     default:
       return { ...state };

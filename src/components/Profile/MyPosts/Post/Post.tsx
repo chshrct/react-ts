@@ -1,15 +1,24 @@
-import React from 'react';
-import classes from "./Post.module.css";
+import React, { FC } from 'react';
 
+import classes from './Post.module.css';
 
-function Post(props:any) {
-    return (
-        <div className={classes.item}>
-            <img className={classes.postImg} src='https://www.blexar.com/avatar.png' alt='ava'/>
-            {props.message}
-            <span>likes = {props.likeCount}</span>
-        </div>
-    )
-}
+type PropsType = {
+  message: string;
+  likeCount: number;
+};
 
-export default Post
+export const Post: FC<PropsType> = ({ message, likeCount }) => {
+  return (
+    <div className={classes.item}>
+      <img
+        className={classes.postImg}
+        src="https://www.blexar.com/avatar.png"
+        alt="ava"
+      />
+      {message}
+      <span>likes = {likeCount}</span>
+    </div>
+  );
+};
+
+export default Post;

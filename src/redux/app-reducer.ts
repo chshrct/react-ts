@@ -1,15 +1,16 @@
-import { getAuthUserData } from "./auth-reducer";
-import { ThunkApp } from "./redux-store";
+import { getAuthUserData } from './auth-reducer';
+import { ThunkApp } from './redux-store';
 
 enum AppActionsTypes {
-  initializedSuccessfully = "APP/INITIALIZED_SUCCESSFULLY",
+  initializedSuccessfully = 'APP/INITIALIZED_SUCCESSFULLY',
 }
 
 const initialState = {
   initialized: false,
 };
+type initialStateType = typeof initialState;
 
-const appReducer = (state = initialState, action: RootAppAction) => {
+const appReducer = (state = initialState, action: RootAppAction): initialStateType => {
   switch (action.type) {
     case AppActionsTypes.initializedSuccessfully:
       return { ...state, initialized: true };
@@ -19,17 +20,17 @@ const appReducer = (state = initialState, action: RootAppAction) => {
   }
 };
 
-//actions
+// actions
 
 export const setSuccessfulInitialization = () =>
   ({
     type: AppActionsTypes.initializedSuccessfully,
   } as const);
 
-//thunks
+// thunks
 
-export const initializeApp = (): ThunkApp => (dispatch) => {
-  //@ts-ignore
+export const initializeApp = (): ThunkApp => dispatch => {
+  // @ts-ignore
   dispatch(getAuthUserData()).then(() => {
     dispatch(setSuccessfulInitialization());
   });
@@ -37,7 +38,7 @@ export const initializeApp = (): ThunkApp => (dispatch) => {
 
 export default appReducer;
 
-//types
+// types
 
 type setSuccessfulInitializationActionType = ReturnType<
   typeof setSuccessfulInitialization

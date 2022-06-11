@@ -1,12 +1,9 @@
-import React from "react";
+import React, { FC } from 'react';
 
 export type messageType = {
-    id: number
-    message: string
-}
+  message: string;
+};
 
-export const MessageItem = (props: messageType) => {
-    return (
-        <div className="message">{props.message}</div>
-    )
-}
+export const MessageItem: FC<messageType> = ({ message }) => {
+  return <div className="message">{message}</div>;
+};

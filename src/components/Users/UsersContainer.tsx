@@ -1,55 +1,75 @@
-import { Component } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { AppRootStateType } from "../../redux/redux-store";
+import { Component, ReactNode } from 'react';
+
+import { connect, ConnectedProps } from 'react-redux';
+
+import { AppRootStateType } from '../../redux/redux-store';
 import {
   followUser,
   getUsers,
   setFollowInProgress,
   unFollowUser,
-} from "../../redux/users-reducer";
-import { selectCurrentPage, selectIsFetching, selectIsFollowInProgress, selectPageSize, selectTotalUsersCount, selectUsers } from "../../redux/users-selectors";
-import Preloader from "../../shared/Preloader/Preloader";
-import Users from "./Users";
+} from '../../redux/users-reducer';
+import {
+  selectCurrentPage,
+  selectIsFetching,
+  selectIsFollowInProgress,
+  selectPageSize,
+  selectTotalUsersCount,
+  selectUsers,
+} from '../../redux/users-selectors';
+import Preloader from '../../shared/Preloader/Preloader';
+
+import Users from './Users';
 
 class UsersAPIComponent extends Component<PropsFromRedux> {
-  onPageSelect = (page: number) => {
-    this.props.getUsers(page, this.props.pageSize);
-  };
-
-  componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+  componentDidMount(): void {
+    const { getUsers: getUsersProp, currentPage, pageSize } = this.props;
+    getUsersProp(currentPage, pageSize);
   }
 
-  render() {
+  onPageSelect = (page: number): void => {
+    const { getUsers: getUsersProp, pageSize } = this.props;
+    getUsersProp(page, pageSize);
+  };
+
+  render(): ReactNode {
+    const {
+      isFetching,
+      isFollowInProgress,
+      unFollowUser: unFollowUserProp,
+      followUser: followUserProp,
+      currentPage,
+      pageSize,
+      totalUsersCount,
+      users,
+    } = this.props;
     return (
       <>
-        {this.props.isFetching && <Preloader />}
+        {isFetching && <Preloader />}
         <Users
-          isFollowInProgress={this.props.isFollowInProgress}
-          totalUsersCount={this.props.totalUsersCount}
-          pageSize={this.props.pageSize}
-          currentPage={this.props.currentPage}
+          isFollowInProgress={isFollowInProgress}
+          totalUsersCount={totalUsersCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
           onPageSelect={this.onPageSelect}
-          users={this.props.users}
-          unFollowUser={this.props.unFollowUser}
-          followUser={this.props.followUser}
-          setFollowInProgress={this.props.setFollowInProgress}
+          users={users}
+          unFollowUser={unFollowUserProp}
+          followUser={followUserProp}
         />
       </>
     );
   }
 }
 
-const mapStateToProps = (state: AppRootStateType) => {
-  return {
+const mapStateToProps = (state: AppRootStateType) =>
+  ({
     users: selectUsers(state),
     pageSize: selectPageSize(state),
     totalUsersCount: selectTotalUsersCount(state),
     currentPage: selectCurrentPage(state),
     isFetching: selectIsFetching(state),
     isFollowInProgress: selectIsFollowInProgress(state),
-  };
-};
+  } as const);
 
 const mapDispatchToProps = {
   followUser,

@@ -1,6 +1,9 @@
-import { profileApi } from "../api/api";
-import { ValuesType } from "../components/Profile/MyPosts/AddPostForm/AddPostForm";
-import { ThunkApp } from "./redux-store";
+import { profileApi } from '../api/api';
+import { ValuesType } from '../components/Profile/MyPosts/AddPostForm/AddPostForm';
+
+import { ThunkApp } from './redux-store';
+
+import { ZERO } from 'constant';
 
 type MessageType = {
   id: number;
@@ -15,10 +18,10 @@ export type ProfileStateType = {
 };
 
 enum ProfileActionsTypes {
-  ADD_POST = "ADD_POST",
-  UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT",
-  SET_PROFILE = "SET_USER_PROFILE",
-  SET_STATUS = "SET_USER_STATUS",
+  ADD_POST = 'ADD_POST',
+  UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT',
+  SET_PROFILE = 'SET_USER_PROFILE',
+  SET_STATUS = 'SET_USER_STATUS',
 }
 
 type AddPostActionType = {
@@ -66,35 +69,41 @@ export type ProfileType = {
 
 const initState: ProfileStateType = {
   posts: [
-    { id: 1, message: "hello", likeCount: 10 },
-    { id: 2, message: "hiho", likeCount: 5 },
+    { id: 1, message: 'hello', likeCount: 10 },
+    { id: 2, message: 'hiho', likeCount: 5 },
   ],
   profile: null,
-  status: "",
+  status: '',
 };
 
 export const profileReducer = (
   state: ProfileStateType = initState,
-  action: RootProfileAction
-) => {
+  action: RootProfileAction,
+): ProfileStateType => {
   switch (action.type) {
     case ProfileActionsTypes.ADD_POST:
-      let newMessage = {
-        id: 3,
-        message: action.value.postMessage,
-        likeCount: 0,
+      return {
+        ...state,
+        posts: [
+          ...state.posts,
+          {
+            id: 3,
+            message: action.value.postMessage,
+            likeCount: 0,
+          },
+        ],
       };
-      return { ...state, posts: [...state.posts, newMessage] };
     case ProfileActionsTypes.SET_PROFILE:
       return { ...state, profile: action.profile };
-    default:
-      return { ...state };
+
     case ProfileActionsTypes.SET_STATUS:
       return { ...state, status: action.status };
+    default:
+      return { ...state };
   }
 };
 
-//Action
+// action
 
 export const addPost = (value: ValuesType): AddPostActionType => ({
   type: ProfileActionsTypes.ADD_POST,
@@ -111,28 +120,28 @@ export const setStatus = (status: string): setUserStatusActionType => ({
   status,
 });
 
-//Thunk
+// thunk
 
 export const getProfile =
   (userId: number): ThunkApp =>
-  (dispatch) => {
-    profileApi.getUserProfile(userId).then((response) => {
+  dispatch => {
+    profileApi.getUserProfile(userId).then(response => {
       dispatch(setProfile(response.data));
     });
   };
 
 export const getStatus =
   (userId: number): ThunkApp =>
-  (dispatch) => {
-    profileApi.getStatus(userId).then((response) => {
+  dispatch => {
+    profileApi.getStatus(userId).then(response => {
       dispatch(setStatus(response.data));
     });
   };
 
 export const updateStatus =
   (status: string): ThunkApp =>
-  (dispatch) => {
-    profileApi.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0) dispatch(setStatus(status));
+  dispatch => {
+    profileApi.updateStatus(status).then(response => {
+      if (response.data.resultCode === ZERO) dispatch(setStatus(status));
     });
   };
