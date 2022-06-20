@@ -2,10 +2,9 @@ import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import { UserType } from '../../redux/users-reducer';
-
 import s from './Users.module.css';
 
+import { UserType } from 'api/users';
 import { ONE } from 'constant';
 
 type PropsType = {

@@ -1,5 +1,6 @@
 import { AppRootStateType } from './redux-store';
-import { UserType } from './users-reducer';
+
+import { UserType } from 'api/users';
 
 export const selectUsers = (state: AppRootStateType): UserType[] => state.usersPage.users;
 export const selectPageSize = (state: AppRootStateType): number =>

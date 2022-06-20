@@ -1,10 +1,9 @@
 import { FormikHelpers } from 'formik';
 import { Reducer } from 'redux';
 
-import { authApi, LoginInfoType } from '../api/api';
-
 import { ThunkApp } from './redux-store';
 
+import { authApi, LoginInfoType } from 'api/auth';
 import { ZERO } from 'constant';
 
 enum ActionTypes {

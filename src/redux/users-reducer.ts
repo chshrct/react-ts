@@ -1,18 +1,6 @@
-import { usersApi } from '../api/api';
-
 import { ThunkApp } from './redux-store';
 
-export type UserType = {
-  name: string;
-  id: number;
-  uniqueUrlName: null;
-  photos: {
-    small: string;
-    large: string;
-  };
-  status: null;
-  followed: boolean;
-};
+import { usersApi, UserType } from 'api/users';
 
 export type UsersStateType = {
   users: Array<UserType>;
@@ -205,7 +193,7 @@ export const followUser =
   (userId: number): ThunkApp =>
   dispatch => {
     dispatch(setFollowInProgress(userId, true));
-    usersApi.Follow(userId).then(() => {
+    usersApi.follow(userId).then(() => {
       dispatch(follow(userId));
       dispatch(setFollowInProgress(userId, false));
     });

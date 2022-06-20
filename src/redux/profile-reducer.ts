@@ -1,8 +1,8 @@
-import { profileApi } from '../api/api';
 import { ValuesType } from '../components/Profile/MyPosts/AddPostForm/AddPostForm';
 
 import { ThunkApp } from './redux-store';
 
+import { profileApi } from 'api/profile';
 import { ZERO } from 'constant';
 
 type MessageType = {
