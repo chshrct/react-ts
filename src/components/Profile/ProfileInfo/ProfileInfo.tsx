@@ -1,15 +1,16 @@
 import { FC } from 'react';
 
-import { ProfileType } from '../../../redux/profile-reducer';
 import Preloader from '../../../shared/Preloader/Preloader';
 
 import style from './ProfileInfo.module.css';
 import ProfileStatusFunctional from './ProfileStatus/ProfileStatusFunctional';
 
+import { ProfileType } from 'api/profile';
+
 type PropsType = {
   profile: ProfileType;
   status: string;
-  updateStatus: (status: string) => void;
+  updateStatus: (payload: { status: string }) => void;
   authUserId: number | null;
 };
 

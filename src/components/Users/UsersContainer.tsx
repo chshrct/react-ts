@@ -2,13 +2,7 @@ import { Component, ReactNode } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 
-import { AppRootStateType } from '../../redux/redux-store';
-import {
-  followUser,
-  getUsers,
-  setFollowInProgress,
-  unFollowUser,
-} from '../../redux/users-reducer';
+import Preloader from '../../shared/Preloader/Preloader';
 import {
   selectCurrentPage,
   selectIsFetching,
@@ -16,20 +10,21 @@ import {
   selectPageSize,
   selectTotalUsersCount,
   selectUsers,
-} from '../../redux/users-selectors';
-import Preloader from '../../shared/Preloader/Preloader';
+} from '../../store/reducers/users/users-selectors';
 
 import Users from './Users';
+
+import { AppRootStateType, followUser, getUsers, unFollowUser } from 'store';
 
 class UsersAPIComponent extends Component<PropsFromRedux> {
   componentDidMount(): void {
     const { getUsers: getUsersProp, currentPage, pageSize } = this.props;
-    getUsersProp(currentPage, pageSize);
+    getUsersProp({ currentPage, pageSize });
   }
 
-  onPageSelect = (page: number): void => {
+  onPageSelect = (currentPage: number): void => {
     const { getUsers: getUsersProp, pageSize } = this.props;
-    getUsersProp(page, pageSize);
+    getUsersProp({ currentPage, pageSize });
   };
 
   render(): ReactNode {
@@ -74,7 +69,6 @@ const mapStateToProps = (state: AppRootStateType) =>
 const mapDispatchToProps = {
   followUser,
   unFollowUser,
-  setFollowInProgress,
   getUsers,
 };
 

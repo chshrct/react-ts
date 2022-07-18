@@ -2,10 +2,9 @@ import { FC } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 
-import { logout } from '../../redux/auth-reducer';
-import { AppRootStateType } from '../../redux/redux-store';
-
 import Header from './Header';
+
+import { AppRootStateType, logout } from 'store';
 
 export const HeaderContainer: FC<ReduxPropsHeader> = props => {
   // eslint-disable-next-line react/jsx-props-no-spreading

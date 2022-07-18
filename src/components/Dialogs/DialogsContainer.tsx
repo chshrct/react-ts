@@ -1,13 +1,12 @@
 import { ComponentType } from 'react';
 
+import { compose, Dispatch } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose, Dispatch } from 'redux';
-
-import { newMessageBody, sendMessage } from '../../redux/dialogs-reducer';
-import { AppRootStateType } from '../../redux/redux-store';
 
 import { FormValuesType } from './AddMessageForm/AddMessageForm';
 import { Dialogs } from './Dialogs';
+
+import { AppRootStateType, sendMessage, updateMessage } from 'store';
 
 const mapStateToProps = (state: AppRootStateType) =>
   ({
@@ -19,8 +18,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     SendMessage: (values: FormValuesType) => {
       dispatch(sendMessage(values));
     },
-    EditMessage: (text: string) => {
-      dispatch(newMessageBody(text));
+    EditMessage: (message: string) => {
+      dispatch(updateMessage({ message }));
     },
   } as const);
 

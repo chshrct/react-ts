@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component } from "react";
+import React, { ChangeEvent, Component, ReactElement } from 'react';
 
 type ProfileStatusProps = {
   status: string;
@@ -12,54 +12,61 @@ type ProfileStatusState = {
   status: string;
 };
 
-export class ProfileStatus extends Component<
-  ProfileStatusProps,
-  ProfileStatusState
-> {
-  state = {
-    editMode: false,
-    status: this.props.status,
-  };
+export class ProfileStatus extends Component<ProfileStatusProps, ProfileStatusState> {
+  constructor(props: ProfileStatusProps | Readonly<ProfileStatusProps>) {
+    super(props);
+    const { status } = props;
+    this.state = {
+      editMode: false,
+      status,
+    };
+  }
 
-  componentDidUpdate(
-    prevProps: ProfileStatusProps,
-    prevState: ProfileStatusState
-  ) {
-    if (prevProps.status !== this.props.status) {
-      this.setState({ status: this.props.status });
+  componentDidUpdate(prevProps: ProfileStatusProps): void {
+    const { status } = this.props;
+
+    if (prevProps.status !== status) {
+      this.setState({ status });
     }
   }
 
-  activateEditMode = () => {
-    this.props.authUserId === this.props.profileId &&
-      this.setState({ editMode: true });
+  activateEditMode = (): void => {
+    const { profileId, authUserId } = this.props;
+
+    if (authUserId === profileId) this.setState({ editMode: true });
   };
-  deactivateEditMode = () => {
+
+  deactivateEditMode = (): void => {
+    const { updateStatus } = this.props;
+    const { status } = this.state;
     this.setState({ editMode: false });
-    this.props.updateStatus(this.state.status);
+    updateStatus(status);
   };
-  changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+
+  changeStatus = (e: ChangeEvent<HTMLInputElement>): void => {
     this.setState({
       status: e.currentTarget.value,
     });
   };
-  render() {
+
+  render(): ReactElement {
+    const { editMode, status } = this.state;
+    const { status: propStatus } = this.props;
     return (
       <div>
-        {this.state.editMode ? (
+        {editMode ? (
           <div>
             <input
-              value={this.state.status}
+              value={status}
               onChange={this.changeStatus}
               onBlur={this.deactivateEditMode}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
             />
           </div>
         ) : (
           <div>
-            <span onDoubleClick={this.activateEditMode}>
-              {this.props.status || "No Status"}
-            </span>
+            <span onDoubleClick={this.activateEditMode}>{propStatus || 'No Status'}</span>
           </div>
         )}
       </div>

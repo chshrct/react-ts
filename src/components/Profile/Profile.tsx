@@ -1,14 +1,14 @@
 import { FC } from 'react';
 
-import { ProfileType } from '../../redux/profile-reducer';
-
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
+
+import { ProfileType } from 'api/profile';
 
 type PropsType = {
   profile: ProfileType;
   status: string;
-  updateStatus: (status: string) => void;
+  updateStatus: (payload: { status: string }) => void;
   authUserId: number | null;
 };
 

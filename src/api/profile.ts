@@ -15,7 +15,7 @@ export const profileApi = {
 
 // types
 
-type ProfileType = {
+export type ProfileType = {
   aboutMe: string;
   contacts: {
     facebook: string;

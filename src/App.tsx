@@ -10,9 +10,10 @@ import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import { initializeApp } from './redux/app-reducer';
-import { AppRootStateType } from './redux/redux-store';
 import Preloader from './shared/Preloader/Preloader';
+import { initializeApp } from './store/reducers/app/actions';
+
+import { AppRootStateType } from 'store';
 
 class App extends React.Component<AppReduxPropsType> {
   componentDidMount(): void {
@@ -49,7 +50,7 @@ class App extends React.Component<AppReduxPropsType> {
 
 const mapStateToProps = (state: AppRootStateType) =>
   ({
-    initialized: state.app.initialized,
+    initialized: state.app.isInitialized,
   } as const);
 
 const connector = connect(mapStateToProps, { initializeApp });

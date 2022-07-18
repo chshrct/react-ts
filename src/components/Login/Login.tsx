@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { AppRootStateType } from '../../redux/redux-store';
-
 import LoginForm from './LoginForm/LoginForm';
+
+import { AppRootStateType } from 'store';
 
 const Login: FC = () => {
   const isAuth = useSelector<AppRootStateType>(state => state.auth.isAuth);

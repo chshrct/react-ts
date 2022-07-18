@@ -1,10 +1,10 @@
 import { instance } from './apiConfig';
 import { ResponseType } from './auth';
 
-import { ONE, PAGE_SIZE } from 'constant';
+import { ERROR, PAGE_SIZE } from 'constant';
 
 export const usersApi = {
-  getUsers(currentPage: number = ONE, pageSize: number = PAGE_SIZE) {
+  getUsers(currentPage: number = ERROR, pageSize: number = PAGE_SIZE) {
     return instance
       .get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`)
       .then(response => response.data);

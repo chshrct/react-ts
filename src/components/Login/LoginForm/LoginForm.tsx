@@ -3,12 +3,11 @@ import { FC } from 'react';
 
 import { Field, Form, Formik } from 'formik';
 
-import { login } from '../../../redux/auth-reducer';
-import { useAppDispatch } from '../../../redux/redux-store';
 import FormInput from '../../../shared/FormInput/FormInput';
 import { textAreasValidation } from '../../../utils/validation/validators';
 
 import { MESSAGE_SIZE } from 'constant';
+import { useAppDispatch, login } from 'store';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +19,7 @@ const LoginForm: FC = () => {
         rememberMe: false,
       }}
       onSubmit={(values, actions) => {
-        dispatch(login(values, actions));
+        dispatch(login({ loginData: values, actions }));
       }}
     >
       {({ isSubmitting }) => (

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import { ComponentType, FC, useEffect } from 'react';
 
+import { compose } from '@reduxjs/toolkit';
 import { connect, ConnectedProps } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { compose } from 'redux';
-
-import { getProfile, getStatus, updateStatus } from '../../redux/profile-reducer';
-import { AppRootStateType } from '../../redux/redux-store';
 
 import Profile from './Profile';
+
+import { AppRootStateType, getProfile, getStatus, updateStatus } from 'store';
 
 const ProfileContainer: FC<ReduxPropsType> = props => {
   const { getProfile, getStatus, authUserId, profile, status, updateStatus } = props;
@@ -18,8 +17,8 @@ const ProfileContainer: FC<ReduxPropsType> = props => {
   useEffect(() => {
     const userId = param['*'] ? +param['*'] : authUserId;
     if (userId) {
-      getProfile(userId);
-      getStatus(userId);
+      getProfile({ userId });
+      getStatus({ userId });
     } else {
       navigate('/login');
     }
@@ -37,7 +36,7 @@ const ProfileContainer: FC<ReduxPropsType> = props => {
 
 const mapStateToProps = (state: AppRootStateType) =>
   ({
-    authUserId: state.auth.userId,
+    authUserId: state.auth.id,
     profile: state.profilePage.profile,
     status: state.profilePage.status,
   } as const);

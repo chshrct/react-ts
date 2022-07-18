@@ -21,6 +21,7 @@
         "endOfLine": "auto"
       }
     ],
+    "no-param-reassign": "off",
     "no-shadow": "off",
     "no-alert": "error",
     "no-debugger": "error",

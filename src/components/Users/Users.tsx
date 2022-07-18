@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import s from './Users.module.css';
 
 import { UserType } from 'api/users';
-import { ONE } from 'constant';
+import { ERROR } from 'constant';
 
 type PropsType = {
   totalUsersCount: number;
@@ -14,8 +14,8 @@ type PropsType = {
   users: UserType[];
   isFollowInProgress: number[];
   onPageSelect: (page: number) => void;
-  unFollowUser: (userId: number) => void;
-  followUser: (userId: number) => void;
+  unFollowUser: (payload: { userId: number }) => void;
+  followUser: (payload: { userId: number }) => void;
 };
 
 const Users: React.FC<PropsType> = props => {
@@ -31,7 +31,7 @@ const Users: React.FC<PropsType> = props => {
   } = props;
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
   const pages = [];
-  for (let i = 1; i <= pagesCount; i += ONE) {
+  for (let i = 1; i <= pagesCount; i += ERROR) {
     pages.push(i);
   }
   return (
@@ -71,7 +71,7 @@ const Users: React.FC<PropsType> = props => {
                   type="button"
                   disabled={isFollowInProgress.includes(u.id)}
                   onClick={() => {
-                    unFollowUser(u.id);
+                    unFollowUser({ userId: u.id });
                   }}
                 >
                   Unfollow
@@ -81,7 +81,7 @@ const Users: React.FC<PropsType> = props => {
                   type="button"
                   disabled={isFollowInProgress.includes(u.id)}
                   onClick={() => {
-                    followUser(u.id);
+                    followUser({ userId: u.id });
                   }}
                 >
                   Follow
