@@ -3,7 +3,7 @@ import { FC } from 'react';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
 
-import { ProfileType } from 'api/profile';
+import { ProfileType } from 'shared/api/profile';
 
 type PropsType = {
   profile: ProfileType;

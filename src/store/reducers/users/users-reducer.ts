@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { followUser, getUsers, unFollowUser } from './actions';
 import { UsersStateType } from './types';
 
-import { ONE, USER_NOT_FOUND } from 'constant';
+import { ONE, USER_NOT_FOUND } from 'shared/constant';
 
 const usersSlice = createSlice({
   name: 'users',

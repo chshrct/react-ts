@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 
 import s from './Users.module.css';
 
-import { UserType } from 'api/users';
-import { ERROR } from 'constant';
+import { UserType } from 'shared/api/users';
+import { ERROR } from 'shared/constant';
 
 type PropsType = {
   totalUsersCount: number;

@@ -4,16 +4,15 @@ import { connect, ConnectedProps } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
-import Navbar from './components/Navbar/Navbar';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import UsersContainer from './components/Users/UsersContainer';
-import Preloader from './shared/Preloader/Preloader';
-import { initializeApp } from './store/reducers/app/actions';
 
-import { AppRootStateType } from 'store';
+import DialogsContainer from 'pages/Dialogs/DialogsContainer';
+import HeaderContainer from 'pages/Header/HeaderContainer';
+import Login from 'pages/Login/Login';
+import Navbar from 'pages/Navbar/Navbar';
+import ProfileContainer from 'pages/Profile/ProfileContainer';
+import UsersContainer from 'pages/Users/UsersContainer';
+import Preloader from 'shared/ui/Preloader/Preloader';
+import { AppRootStateType, initializeApp } from 'store';
 
 class App extends React.Component<AppReduxPropsType> {
   componentDidMount(): void {

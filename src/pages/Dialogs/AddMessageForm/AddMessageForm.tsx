@@ -2,10 +2,9 @@ import { FC } from 'react';
 
 import { Field, Form, Formik } from 'formik';
 
-import FormTextArea from '../../../shared/FormTextArea/FormTextArea';
-import { textAreasValidation } from '../../../utils/validation/validators';
-
-import { MESSAGE_SIZE } from 'constant';
+import { MESSAGE_SIZE } from 'shared/constant';
+import FormTextArea from 'shared/ui/FormTextArea/FormTextArea';
+import { textAreasValidation } from 'shared/utils/validation/validators';
 
 type PropsType = {
   onClickSendMessage: (values: FormValuesType) => void;

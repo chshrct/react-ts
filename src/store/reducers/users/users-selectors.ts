@@ -1,4 +1,4 @@
-import { UserType } from 'api/users';
+import { UserType } from 'shared/api/users';
 import { AppRootStateType } from 'store';
 
 export const selectUsers = (state: AppRootStateType): UserType[] => state.usersPage.users;

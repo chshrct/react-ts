@@ -3,11 +3,11 @@ import { FC } from 'react';
 
 import { Field, Form, Formik } from 'formik';
 
-import FormInput from '../../../shared/FormInput/FormInput';
-import { textAreasValidation } from '../../../utils/validation/validators';
+import FormInput from '../../../shared/ui/FormInput/FormInput';
 
-import { MESSAGE_SIZE } from 'constant';
-import { useAppDispatch, login } from 'store';
+import { MESSAGE_SIZE } from 'shared/constant';
+import { textAreasValidation } from 'shared/utils/validation/validators';
+import { login, useAppDispatch } from 'store';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();

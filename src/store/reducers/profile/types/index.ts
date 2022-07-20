@@ -1,4 +1,4 @@
-import { ProfileType } from 'api/profile';
+import { ProfileType } from 'shared/api/profile';
 
 type MessageType = {
   id: number;

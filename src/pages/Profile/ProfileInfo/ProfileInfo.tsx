@@ -1,11 +1,10 @@
 import { FC } from 'react';
 
-import Preloader from '../../../shared/Preloader/Preloader';
-
 import style from './ProfileInfo.module.css';
 import ProfileStatusFunctional from './ProfileStatus/ProfileStatusFunctional';
 
-import { ProfileType } from 'api/profile';
+import { ProfileType } from 'shared/api/profile';
+import Preloader from 'shared/ui/Preloader/Preloader';
 
 type PropsType = {
   profile: ProfileType;

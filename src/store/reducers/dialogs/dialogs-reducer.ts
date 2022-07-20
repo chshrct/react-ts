@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { FormValuesType } from '../../../components/Dialogs/AddMessageForm/AddMessageForm';
-
 import { DialogsStateType } from './types';
+
+import { FormValuesType } from 'pages/Dialogs/AddMessageForm/AddMessageForm';
 
 const THOUSAND = 1000;
 

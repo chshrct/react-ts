@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { FormikHelpers } from 'formik';
 
-import { authApi, LoginInfoType as LoginDataType } from 'api/auth';
-import { CONFIRMED } from 'constant';
+import { authApi, LoginInfoType as LoginDataType } from 'shared/api/auth';
+import { CONFIRMED } from 'shared/constant';
 
 export const getAuthUserData = createAsyncThunk(
   'auth/getAuthUserData',

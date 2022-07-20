@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { profileApi } from 'api/profile';
-import { CONFIRMED } from 'constant';
+import { profileApi } from 'shared/api/profile';
+import { CONFIRMED } from 'shared/constant';
 
 export const getProfile = createAsyncThunk(
   'profile/getProfile',

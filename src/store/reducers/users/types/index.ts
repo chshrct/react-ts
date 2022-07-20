@@ -1,4 +1,4 @@
-import { UserType } from 'api/users';
+import { UserType } from 'shared/api/users';
 
 export type UsersStateType = {
   users: Array<UserType>;

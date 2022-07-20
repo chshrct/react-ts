@@ -2,7 +2,6 @@ import { Component, ReactNode } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 
-import Preloader from '../../shared/Preloader/Preloader';
 import {
   selectCurrentPage,
   selectIsFetching,
@@ -14,6 +13,7 @@ import {
 
 import Users from './Users';
 
+import Preloader from 'shared/ui/Preloader/Preloader';
 import { AppRootStateType, followUser, getUsers, unFollowUser } from 'store';
 
 class UsersAPIComponent extends Component<PropsFromRedux> {

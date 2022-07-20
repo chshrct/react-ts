@@ -1,7 +1,7 @@
 import { instance } from './apiConfig';
 import { ResponseType } from './auth';
 
-import { ERROR, PAGE_SIZE } from 'constant';
+import { ERROR, PAGE_SIZE } from 'shared/constant';
 
 export const usersApi = {
   getUsers(currentPage: number = ERROR, pageSize: number = PAGE_SIZE) {

@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ValuesType } from '../../../components/Profile/MyPosts/AddPostForm/AddPostForm';
-
 import { getProfile, getStatus, updateStatus } from './actions';
 import { ProfileStateType } from './types';
+
+import { ValuesType } from 'pages/Profile/MyPosts/AddPostForm/AddPostForm';
 
 const profileSlice = createSlice({
   name: 'profile',
